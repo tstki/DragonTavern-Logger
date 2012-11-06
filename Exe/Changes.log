@@ -1,0 +1,187 @@
+Dragon Tavern Logger.
+
+For known issues and intended additions see the bottom of this file.
+
+---------------------------------------------------------------------------------
+1.0.8 : 2012
+---------------------------------------------------------------------------------
+We're now on GitHub!
+
+Inventory dialog:
+* Added option to limit the number of rows the auto-selection performs if you have a cube.
+
+---------------------------------------------------------------------------------
+1.0.7 : 20111225
+---------------------------------------------------------------------------------
+* Fixed the name of "Abyssal Mines" in Zones.ini : All subzones have now been fixed and confirmed to be spelled correctly!
+* Added option to block out logging of "double XP" monsters such as spawn during festivus. Since these can spawn in all areas and may disrupt data integrity.
+
+Data analysis dialog (F9):
+* Added ability to completely hide certain rows based on kill count.
+* The dialog should now save it's settings more reliably.
+* The level column now sorts by it's first number rather than by text. So, it will sort as: 1,2,3,4,5,6 instead of 1,20,3,50+,7 etc.
+
+---------------------------------------------------------------------------------
+1.0.6 : 2011118
+---------------------------------------------------------------------------------
+* Fixed the name of "Fork Tongue Clutch" in Zones.ini
+* Fixed Alt+F4 to close application.
+* Added "Lazy Zoneview" option. This ensures the zone view is never cleared automatically. To combat a so far unknown issue some people were having.
+* Added ability to pre-fill your username and password. Note: These are stored locally in DragonLogger.ini as plain text. So, only use this feature if your pc is 100% secure.
+* Added data export to .csv file format. See Menu: Browser -> Export. The exported data is controlled by your other preferences (such as include host data)
+* Added option to preferences(F11) to export .csv data as total kill count(default) or percentages(as seen in the analyze dialog).
+
+Inventory dialog:
+* Added progress dialog upon cubing more than two items. To show it is working hard on making your items into gold.
+* Sort columns are now remembered on open/close.
+* Position on screen and width/height are now remembered on open/close.
+
+Data analysis dialog (F9):
+* Dialog is no longer modal. Meaning you can keep it open while exploring, and press the new refresh button to update the data.
+* Sort columns are now remembered on open/close.
+* Position on screen and width/height are now remembered on open/close.
+* Now has a smaller "minimum" size.
+
+---------------------------------------------------------------------------------
+1.0.5 : 20111024
+---------------------------------------------------------------------------------
+* Fixed the names of "Temple of Filth", "The Sandy Beggar" and "Den of the Delvisha" in Zones.ini - hope that's the last of them, but can't be 100% sure just yet.
+* Data analysis dialog(F9) added. You'll be able to find detailed % of which zones have the highest population to hunt.
+* Added background color preferences(F11) for the data analyzer. Fixed colors for now, but you can change the activation %.
+* Inventory list by default now sorts the value/weight column instead of the weight column.
+* Main window tables and Inventory dialog table changed to "read only" - doesn't affect anything but it looked silly if you tried to double click it.
+* Added lots more icons. Once again thanks to the FatCow free Farm-fresh set. http://www.fatcow.com/free-icons
+
+---------------------------------------------------------------------------------
+1.0.4 : 20111015
+---------------------------------------------------------------------------------
+* Fixed the names of "Planar Crossroads" and "Sliverghoul Burrow" in Zones.ini.
+* Inventory list dialog is now sortable.
+* Implemented alternating row colors for all tables.
+* Collected data is now stored separately from the developer data. You will never have to worry about losing your data after upgrading again!
+* Added preferences dialog (F11). Currently you are able to hide the developer collected data, and show/hide the combined data columns.
+* Added hotkey for help dialog (F1) and about dialog (F2).
+
+Main screen:
+* Gathered data method changed to "table views" to support host/local data.
+* The table row indication for new creatures found during this exploration attempt will now draw in a "bold" style instead of show "(+1)".
+* Zoneview and Dataview tables are now sortable! - Current sort column and direction will be remembered in the settings.
+* Made the screen slightly less wide. (Around 40-50 pixels or so)
+* Added ability to hide the browser navigation bar. You can find the option in the preferences dialog (F11).
+* Added ability to manually refresh the data view with the push of a single button.
+
+---------------------------------------------------------------------------------
+1.0.3 : 20110925
+---------------------------------------------------------------------------------
+* Fixed browser window losing focus after closing the Inventory list dialog, or pressing certain action buttons. It should be a bit less "strange" to use now.
+* Disabled buttons when logged out or timed out.
+* More button icons added.
+* Buttons are now double buffered - which stops the strange icon fade-in / fade-out after selection on Vista and Windows 7.
+* Added several button tooltips.
+* Menubar added, to fit in a lot more actions and shortcuts for the future.
+* Hotkeys dialog added. It shows you all the known DT hotkeys and how to enable them.
+* Page source dialog: Added select all ability (Ctrl+A), as well as Escape button to close.
+* Dialog creation changed to runtime rather than global. (You shouldn't notice much other than a slightly smaller memory footprint)
+* Subdialog default positions changed to "Owner Form Center". So, no more random positions on those.
+* We are now hiding several "strange" urls like google syndication, facebook, blanc, javascript e.a. that were reported earlier. Remember this is a Dragon Tavern logger, so while other webpages might work - it is not the main focus of this application. As a result of hiding these urls, the buttons and menu actions should be enabled/disabled in a more reliable & predictable manner.
+* Disabled "Return to tavern", if you are in the tavern. It isn't going to do you much good to go where you already are.
+* Added the list of monsters found in the tavern.
+* Now keeping track of the latest version of the application you started. So we can show a changelog on startup later.
+
+Inventory dialog:
+* Added "select common" button.
+* Changed select weight in to work as "this weight and greater".
+* OK button renamed to: "Portal It!"
+* Turned warning text red.
+
+---------------------------------------------------------------------------------
+1.0.2 : 20110917
+---------------------------------------------------------------------------------
+* Added application icon
+
+Main screen:
+* Button tab order improved.
+* Added "about" dialog. (Questionmark button topright)
+* Added some icons. It's not much, but looks better at least.
+* Page source button. Mostly for debugging purposes.
+* Inventory list button now has a better placement among it's fellows.
+* Inventory list button is now disabled properly.
+* Inventory list button can now be pressed even when you are not on your inventory page. It will try to load your inventory, "and then" open the dialog.
+
+Inventory dialog:
+* Button tab order improved.
+* Added 5 new buttons - Select all by weight: 10, 11, 12, 13, unselect all.
+* It will now tell you how many items you have selected.
+* Implemented number of cube charges available.
+* Show a warning if you select more items than the available cube charges.
+* No longer tries to recycle selected items if you do not have a cube.
+* Will not show certain buttons if you do not have a cube.
+
+---------------------------------------------------------------------------------
+1.0.1 : 20110606
+---------------------------------------------------------------------------------
+* Added inventory list dialog.
+* Lots more initial data than the last version.
+* Window saves it's size and location.
+* Some spelling errors fixed in the elite sublocations (let me know if you find any more!)
+
+---------------------------------------------------------------------------------
+1.0.0 : 20110220
+---------------------------------------------------------------------------------
+* Initial version.
+* Web frame
+* Url bars
+* Zone logging
+
+---------------------------------------------------------------------------------
+Intended additions : (At an unknown point in the future, stay tuned for updates!)
+---------------------------------------------------------------------------------
+New Features:
+* List of titles earned / still unearned + how to get them. : see http://dragontavern.wikia.com/wiki/Titles
+	* Expand titles list file with the help of the forum community first.
+* Add subzone exploration attempt counter.
+* Add dialog to export, so you can choose which data to export and whether to export raw data, or percentages.
+* Keep track of the creature type you are currently hunting.
+* Log your biggest haul.
+* Log the most expensive item ever sold.
+* Log boss kills
+* Recent events log ( Killed X, killed Y, looted X, avoided trap, much like the front page )
+* Auto-explore. Explore automatically until a certain criteria is met.
+** X wounds taken, X explores done, run out of AP (duh), inventory is >= X%, you level up, you reach level X, you encounter a sublocation
+** Give result of the auto explore. You found X gold, Y gold worth in items, slain Z monsters, and died on the X'th exploration attempt. Or "are still alive".
+
+User Interface:
+* Expand the Preferences dialog to allow some customization of the interface. (In progress)
+* Show / Hide menu bar & side bar. And remember whether the bar was visible on startup.
+* Add multiple export styles: Html / xml / tabbed.txt
+* Add option to show % values to data table.
+* Restore selection and vertical scroll position after a manual refresh to the data analysis dialog.
+* Optionally remember last used row for Dataview combobox.
+* Make the delay between cubings a preference. Current default 500 ms, allow it to be a setting between 300ms - 5000ms.
+* Make the progress bar on cubing a preference.
+* Show a changelog dialog (once) if we detect the user has updated the application. Should be possible to enable this in the preferences.
+* Option to only show subzones in the Dataview combobox if you are in a zone. (All zones if you are in DT)
+* Method for increasing/decreasing the browser font size / zoom level.
+* Make "referrer ID" an ini option, which defaults to shadow-bolts, so you can change it and use the program to recruit "your" friends.
+* Compressed view for the statistics page, showing only the "best 2" columns instead of 1 of each type.
+* Hide Levels Above / below X, in data analysis view
+* Have the select all X in the inventory manager only select the lowest Y items, where Y is the max number of current cube charges
+* Add a "hide beer dragon realm" in the options
+
+Under the hood:
+* Threaded data refreshing, so as not to interfere with page reloads.
+* Optimizations in the search pattern. Regex?
+* Better blocking of javascripts that cause full page reloads.
+* Check time since last action. (up to 1 hour?) to keep track of whether we are still logged on.
+
+Known issues:
+* Medium: TWebbrowser does not use the cache properly when using the "back" button to navigate.
+* Low: The Zone data menu item is visible, but not yet implemented. Not really a bug, but listing it here anyway.
+* Low: Hitting F5 to refresh the page, does not update the Zone data when in the tavern.
+* Low: Analyze dialog "levels" column is sorted textually rather than numerical.
+
+---------------------------------------------------------------------------------
+Odd stuff that is not a bug
+---------------------------------------------------------------------------------
+* After logging out / timing out and reaching the login page, the login button (alt+L) wil appear misformed and small.
+** This is a bug in IE / Dragon Tavern itself and will occur when running IE normally as well.
