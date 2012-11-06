@@ -3,7 +3,7 @@ Dragon Tavern Logger.
 For known issues and intended additions see the bottom of this file.
 
 ---------------------------------------------------------------------------------
-1.0.8 : 2012
+1.0.8 : 20121106
 ---------------------------------------------------------------------------------
 We're now on GitHub!
 
@@ -158,7 +158,6 @@ User Interface:
 * Restore selection and vertical scroll position after a manual refresh to the data analysis dialog.
 * Optionally remember last used row for Dataview combobox.
 * Make the delay between cubings a preference. Current default 500 ms, allow it to be a setting between 300ms - 5000ms.
-* Make the progress bar on cubing a preference.
 * Show a changelog dialog (once) if we detect the user has updated the application. Should be possible to enable this in the preferences.
 * Option to only show subzones in the Dataview combobox if you are in a zone. (All zones if you are in DT)
 * Method for increasing/decreasing the browser font size / zoom level.
@@ -173,12 +172,6 @@ Under the hood:
 * Optimizations in the search pattern. Regex?
 * Better blocking of javascripts that cause full page reloads.
 * Check time since last action. (up to 1 hour?) to keep track of whether we are still logged on.
-
-Known issues:
-* Medium: TWebbrowser does not use the cache properly when using the "back" button to navigate.
-* Low: The Zone data menu item is visible, but not yet implemented. Not really a bug, but listing it here anyway.
-* Low: Hitting F5 to refresh the page, does not update the Zone data when in the tavern.
-* Low: Analyze dialog "levels" column is sorted textually rather than numerical.
 
 ---------------------------------------------------------------------------------
 Odd stuff that is not a bug
