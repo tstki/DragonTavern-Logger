@@ -3,11 +3,10 @@ Dragon Tavern Logger.
 ---
 Created by: Thomas Hansen
 Contact: 		bbrundrscoretkiathotmaildtcom (You're smart, you can figure it out)
-Site:    		http://rrvs.blogspot.nl/
+Site:    		http://rrvs.blogspot.nl
 Compiler:		Delphi RAD Studio 2010
 =================================================================================
 
----
 What is it?
 ---
 It's a Delphi tool which loads your local Internet Explorer into an subframe that monitors some of your actions while playing Dragon Tavern.
@@ -15,13 +14,11 @@ It's a Delphi tool which loads your local Internet Explorer into an subframe tha
 * It has a special easy-to-use loot-to-cube helper dialog to maximize your efficiency at transmuting loot into gold.
 * More utility to come in the future.
 
----
 Why did I make it?
 ---
 In theory it could have been done in Greasemonkey, but, I've got no experience with that script language. So, I made it into a desktop application. This means it's faster, easier to update, and can log much more data without it affecting compatibility. It also allows for a lot more user interface dialogues and ease-of-use utility in the future.
 The reason, well, I was getting tired of manually logging what zones had which type of creature in a google spread sheet. This is much more efficient. Once I had the basics, it kind of grew from there.
 
----
 How does it work?
 ---
 The application uses your installed Internet Explorer (Tested with IE9) in a subframe.
@@ -29,7 +26,6 @@ The data is stored locally in an few .ini files and updated as you explore and p
 The right side holds some shortcut buttons - so you can go from cube transmutions STRAIGHT to the dragon tavern, without having to go "return to location" first.
 There's a detail box for your current zone info, and it will update (+1), and show info about any other zone you want - like subzones.
 
-For known issues and intended additions see the bottom of this file.
 
 ---------------------------------------------------------------------------------
 1.0.8 : 20121106
@@ -161,49 +157,3 @@ Inventory dialog:
 * Web frame
 * Url bars
 * Zone logging
-
----------------------------------------------------------------------------------
-Intended additions : (At an unknown point in the future, stay tuned for updates!)
----------------------------------------------------------------------------------
-New Features:
-* List of titles earned / still unearned + how to get them. : see http://dragontavern.wikia.com/wiki/Titles
-	* Expand titles list file with the help of the forum community first.
-* Add subzone exploration attempt counter.
-* Add dialog to export, so you can choose which data to export and whether to export raw data, or percentages.
-* Keep track of the creature type you are currently hunting.
-* Log your biggest haul.
-* Log the most expensive item ever sold.
-* Log boss kills
-* Recent events log ( Killed X, killed Y, looted X, avoided trap, much like the front page )
-* Auto-explore. Explore automatically until a certain criteria is met.
-** X wounds taken, X explores done, run out of AP (duh), inventory is >= X%, you level up, you reach level X, you encounter a sublocation
-** Give result of the auto explore. You found X gold, Y gold worth in items, slain Z monsters, and died on the X'th exploration attempt. Or "are still alive".
-
-User Interface:
-* Expand the Preferences dialog to allow some customization of the interface. (In progress)
-* Show / Hide menu bar & side bar. And remember whether the bar was visible on startup.
-* Add multiple export styles: Html / xml / tabbed.txt
-* Add option to show % values to data table.
-* Restore selection and vertical scroll position after a manual refresh to the data analysis dialog.
-* Optionally remember last used row for Dataview combobox.
-* Make the delay between cubings a preference. Current default 500 ms, allow it to be a setting between 300ms - 5000ms.
-* Show a changelog dialog (once) if we detect the user has updated the application. Should be possible to enable this in the preferences.
-* Option to only show subzones in the Dataview combobox if you are in a zone. (All zones if you are in DT)
-* Method for increasing/decreasing the browser font size / zoom level.
-* Make "referrer ID" an ini option, which defaults to shadow-bolts, so you can change it and use the program to recruit "your" friends.
-* Compressed view for the statistics page, showing only the "best 2" columns instead of 1 of each type.
-* Hide Levels Above / below X, in data analysis view
-* Have the select all X in the inventory manager only select the lowest Y items, where Y is the max number of current cube charges
-* Add a "hide beer dragon realm" in the options
-
-Under the hood:
-* Threaded data refreshing, so as not to interfere with page reloads.
-* Optimizations in the search pattern. Regex?
-* Better blocking of javascripts that cause full page reloads.
-* Check time since last action. (up to 1 hour?) to keep track of whether we are still logged on.
-
----------------------------------------------------------------------------------
-Odd stuff that is not a bug
----------------------------------------------------------------------------------
-* After logging out / timing out and reaching the login page, the login button (alt+L) wil appear misformed and small.
-** This is a bug in IE / Dragon Tavern itself and will occur when running IE normally as well.
