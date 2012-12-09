@@ -61,6 +61,9 @@ type
     FFilterAnalyzerIndex: Integer;
     FFilterAnalyzerValue: Integer;
     FLimitInvCubeCharges: Boolean;
+    FHideBeerRealm: Boolean;
+    FBestHuntingColumns: Boolean;
+    FColorByCreature: Boolean;
 
   public
     { Public declarations }
@@ -114,6 +117,9 @@ type
     property FilterAnalyzerIndex: Integer read FFilterAnalyzerIndex write FFilterAnalyzerIndex;
     property FilterAnalyzerValue: Integer read FFilterAnalyzerValue write FFilterAnalyzerValue;
     property LimitInvCubeCharges: Boolean read FLimitInvCubeCharges write FLimitInvCubeCharges;
+    property HideBeerRealm: Boolean read FHideBeerRealm write FHideBeerRealm;
+    property BestHuntingColumns: Boolean read FBestHuntingColumns write FBestHuntingColumns;
+    property ColorByCreature: Boolean read FColorByCreature write FColorByCreature;
   end;
 
 implementation
@@ -189,6 +195,9 @@ begin
     FFilterAnalyzerIndex := appINI.ReadInteger('Customization', 'FilterAnalyzerIndex', 0);
     FFilterAnalyzerValue := appINI.ReadInteger('Customization', 'FilterAnalyzerValue', 25);
     FLimitInvCubeCharges := appINI.ReadBool('Customization', 'LimitInvCubeCharges', False);
+    FHideBeerRealm := appINI.ReadBool('Customization', 'HideBeerRealm', False);
+    FBestHuntingColumns := appINI.ReadBool('Customization', 'BestHuntingColumns', False);
+    FColorByCreature := appINI.ReadBool('Customization', 'ColorByCreature', False);
   finally
     appINI.Free;
   end;
@@ -255,6 +264,9 @@ begin
       appIni.WriteBool('Customization', 'LazyZoneView', FLazyZoneview);
       appIni.WriteBool('Customization', 'ExportPercentages', FExportPercentages);
       appIni.WriteBool('Customization', 'LimitInvCubeCharges', FLimitInvCubeCharges);
+      appIni.WriteBool('Customization', 'HideBeerRealm', FHideBeerRealm);
+      appIni.WriteBool('Customization', 'BestHuntingColumns', FBestHuntingColumns);
+      appIni.WriteBool('Customization', 'ColorByCreature', FColorByCreature);
     end;
 
   finally

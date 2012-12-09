@@ -141,11 +141,22 @@ begin
     LvAnalyze.Columns.Delete(I);
 
   // Create the columns
-  for I:=0 to FColumnNames.Count-1 do begin
+  if FConfig.BestHuntingColumns then begin
     LC := LvAnalyze.Columns.Add;
-    LC.Caption := FColumnNames[i];
-    LC.Width := 90;
+    LC.Caption := 'Best';
+    LC.Width := 110;
     LC.Alignment := taRightJustify;
+    LC := LvAnalyze.Columns.Add;
+    LC.Caption := '2nd Best';
+    LC.Width := 110;
+    LC.Alignment := taRightJustify;
+  end else begin
+    for I:=0 to FColumnNames.Count-1 do begin
+      LC := LvAnalyze.Columns.Add;
+      LC.Caption := FColumnNames[i];
+      LC.Width := 90;
+      LC.Alignment := taRightJustify;
+    end;
   end;
 
   LvAnalyze.Columns.EndUpdate;
@@ -169,6 +180,8 @@ procedure TDlgAnalyze.FReloadData();
     Li: TListItem;
     I, TotalKills: Integer;
     Item: TDataRow;
+    HighestKills, SecondHighestKills, TempKills: Integer;
+    HighestKillsName, SecondHighestKillsName: String;
   begin
     TotalKills := Data.GetTotalKills(FConfig.IncludeHostData);
 
@@ -191,21 +204,49 @@ procedure TDlgAnalyze.FReloadData();
     Li.SubItems.Add(LevelRange);
     Li.SubItems.Add(IntToStr(TotalKills));
 
+    HighestKills := 0;
+    SecondHighestKills := 0;
+
     for i:=0 to FColumnNames.Count-1 do begin
       Item := Data.GetItemByCreature(FColumnNames[I]);
 
-      if Item <> nil then begin
-        if TotalKills < FConfig.AnalyzeMinimumKills then
-          Li.SubItems.Add('0')
-        else begin
+      if FConfig.BestHuntingColumns then begin
+        if (Item <> nil) and (TotalKills >= FConfig.AnalyzeMinimumKills) then begin
           if FConfig.IncludeHostData then
-            Li.SubItems.Add(FFCalcPercent(Item.HostKills + Item.LocalKills, TotalKills))
+            TempKills := Item.HostKills+Item.LocalKills
           else
-            Li.SubItems.Add(FFCalcPercent(Item.LocalKills, TotalKills));
+            TempKills := Item.LocalKills;
+
+          if TempKills > HighestKills then begin
+            SecondHighestKills := HighestKills;
+            HighestKills := TempKills;
+            SecondHighestKillsName := HighestKillsName;
+            HighestKillsName := FColumnNames[I];
+          end else if TempKills > SecondHighestKills then begin
+            SecondHighestKills := TempKills;
+            SecondHighestKillsName := FColumnNames[I];
+          end;
         end;
-      end else
-        Li.SubItems.Add('0');
+      end else begin
+        if Item <> nil then begin
+          if TotalKills < FConfig.AnalyzeMinimumKills then
+            Li.SubItems.Add('0')
+          else begin
+            if FConfig.IncludeHostData then
+              Li.SubItems.Add(FFCalcPercent(Item.HostKills + Item.LocalKills, TotalKills))
+            else
+              Li.SubItems.Add(FFCalcPercent(Item.LocalKills, TotalKills));
+          end;
+        end else
+          Li.SubItems.Add('0');
+      end;
     end;
+
+    if FConfig.BestHuntingColumns then begin
+      Li.SubItems.Add(HighestKillsName + ' (' + FFCalcPercent(HighestKills, TotalKills) + ')');
+      Li.SubItems.Add(SecondHighestKillsName + ' (' + FFCalcPercent(SecondHighestKills, TotalKills) + ')');
+    end;
+
   end;
 
 var
@@ -224,10 +265,13 @@ begin
       ZoneData.Clear();
       FData.GetZoneData(ZoneData, TZoneObj(ZoneList[i]).Name);
 
-      if TZoneObj(ZoneList[i]).AmSubZone then
-        FFListAddItem(ZoneData, TZoneObj(ZoneList[i]).Parent, TZoneObj(ZoneList[i]).Name, TZoneObj(ZoneList[i]).LevelRange)
-      else
-        FFListAddItem(ZoneData, TZoneObj(ZoneList[i]).Name, '', TZoneObj(ZoneList[i]).LevelRange);
+      if TZoneObj(ZoneList[i]).AmSubZone then begin
+        if not SameText(TZoneObj(ZoneList[i]).Parent, StrBeerDragonRealms) or not FConfig.HideBeerRealm then
+          FFListAddItem(ZoneData, TZoneObj(ZoneList[i]).Parent, TZoneObj(ZoneList[i]).Name, TZoneObj(ZoneList[i]).LevelRange)
+      end else begin
+        if not SameText(TZoneObj(ZoneList[i]).Name, StrBeerDragonRealms) or not FConfig.HideBeerRealm then
+          FFListAddItem(ZoneData, TZoneObj(ZoneList[i]).Name, '', TZoneObj(ZoneList[i]).LevelRange);
+      end;
     end;
   finally
     ZoneList.Free();
@@ -284,7 +328,8 @@ end;
 
 procedure TDlgAnalyze.LvAnalyzeAdvancedCustomDrawSubItem( Sender: TCustomListView; Item: TListItem; SubItem: Integer; State: TCustomDrawState; Stage: TCustomDrawStage; var DefaultDraw: Boolean);
 var
-  UseColor: Integer;
+  UseColor, Pos1: Integer;
+  val: String;
 begin
   if SubItem = 3 then begin
     if FConfig.ColorBelowMinimumKills and (StrToFloatDef(Item.SubItems[SubItem-1], 0) < FConfig.AnalyzeMinimumKills) then begin
@@ -301,15 +346,22 @@ begin
 
     UseColor := 0;
 
+    if FConfig.BestHuntingColumns then begin
+      Pos1 := Pos('(', Item.SubItems[SubItem-1]);
+      Val := Copy(Item.SubItems[SubItem-1], pos1+1,
+           Length(Item.SubItems[SubItem-1])-pos1-1);
+    end else
+      Val := Item.SubItems[SubItem-1];
+
     if FConfig.UseAnalyzeHighest and FConfig.UseAnalyzeHigh and (FConfig.AnalyzeHighestPercent > FConfig.AnalyzeHighPercent) then begin
-      if FConfig.UseAnalyzeHigh and (StrToFloatDef(Item.SubItems[SubItem-1], 0) >= FConfig.AnalyzeHighPercent) then
+      if FConfig.UseAnalyzeHigh and (StrToFloatDef(Val, 0) >= FConfig.AnalyzeHighPercent) then
         UseColor := 2;
-      if FConfig.UseAnalyzeHighest and (StrToFloatDef(Item.SubItems[SubItem-1], 0) >= FConfig.AnalyzeHighestPercent) then
+      if FConfig.UseAnalyzeHighest and (StrToFloatDef(Val, 0) >= FConfig.AnalyzeHighestPercent) then
         UseColor := 1;
     end else begin
-      if FConfig.UseAnalyzeHighest and (StrToFloatDef(Item.SubItems[SubItem-1], 0) >= FConfig.AnalyzeHighestPercent) then
+      if FConfig.UseAnalyzeHighest and (StrToFloatDef(Val, 0) >= FConfig.AnalyzeHighestPercent) then
         UseColor := 1;
-      if FConfig.UseAnalyzeHigh and (StrToFloatDef(Item.SubItems[SubItem-1], 0) >= FConfig.AnalyzeHighPercent) then
+      if FConfig.UseAnalyzeHigh and (StrToFloatDef(Val, 0) >= FConfig.AnalyzeHighPercent) then
         UseColor := 2;
     end;
 
@@ -359,6 +411,8 @@ end;
 procedure TDlgAnalyze.LvAnalyzeCompare(Sender: TObject; Item1, Item2: TListItem; Data: Integer; var Compare: Integer);
 var
   val1, val2: Integer;
+  val3, val4: String;
+  pos1: Integer;
 begin
   Compare := 0;
   if FConfig.AnalyzeScreenSortColumn = 0 then
@@ -382,15 +436,31 @@ begin
   end else if (FConfig.AnalyzeScreenSortColumn <= 2) and (Item1.SubItems.Count >= FConfig.AnalyzeScreenSortColumn) then
     Compare := CompareText(Item1.SubItems[FConfig.AnalyzeScreenSortColumn-1], Item2.SubItems[FConfig.AnalyzeScreenSortColumn-1])
   else if (Item1.SubItems.Count >= FConfig.AnalyzeScreenSortColumn) then begin
-    if StrToFloatDef(Item1.SubItems[FConfig.AnalyzeScreenSortColumn-1],0) < StrToFloatDef(Item2.SubItems[FConfig.AnalyzeScreenSortColumn-1],0) then
-      Compare := 1
-    else if StrToFloatDef(Item1.SubItems[FConfig.AnalyzeScreenSortColumn-1],0) > StrToFloatDef(Item2.SubItems[FConfig.AnalyzeScreenSortColumn-1],0) then
-      Compare := -1
-    else
-      Compare := 0;
+    if not FConfig.BestHuntingColumns or not FConfig.ColorByCreature then begin
+      if FConfig.BestHuntingColumns then begin
+        pos1 := Pos('(', Item1.SubItems[FConfig.AnalyzeScreenSortColumn-1]);
+        val3 := Copy(Item1.SubItems[FConfig.AnalyzeScreenSortColumn-1], pos1+1,
+              Length(Item1.SubItems[FConfig.AnalyzeScreenSortColumn-1])-pos1-1);
+        pos1 := Pos('(', Item2.SubItems[FConfig.AnalyzeScreenSortColumn-1]);
+        val4 := Copy(Item2.SubItems[FConfig.AnalyzeScreenSortColumn-1], pos1+1,
+              Length(Item2.SubItems[FConfig.AnalyzeScreenSortColumn-1])-pos1-1);
+      end else begin
+        val3 := Item1.SubItems[FConfig.AnalyzeScreenSortColumn-1];
+        val4 := Item2.SubItems[FConfig.AnalyzeScreenSortColumn-1];
+      end;
+
+      if StrToFloatDef(val3, 0) < StrToFloatDef(val4, 0) then
+        Compare := 1
+      else if StrToFloatDef(val3, 0) > StrToFloatDef(val4, 0) then
+        Compare := -1
+      else
+        Compare := 0;
+    end else
+      Compare := CompareText(Item1.SubItems[FConfig.AnalyzeScreenSortColumn-1], Item2.SubItems[FConfig.AnalyzeScreenSortColumn-1]);
   end;
 
-  if FConfig.AnalyzeScreenSortDescending then Compare := -Compare;
+  if FConfig.AnalyzeScreenSortDescending then
+    Compare := -Compare;
 end;
 
 end.

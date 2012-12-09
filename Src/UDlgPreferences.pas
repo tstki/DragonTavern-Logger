@@ -46,11 +46,15 @@ type
     Label9: TLabel;
     GroupBox5: TGroupBox;
     ChkLimitInvCubeCharges: TCheckBox;
+    ChkHideBeerRealm: TCheckBox;
+    ChkBestHuntingColumns: TCheckBox;
+    ChkColorByCreature: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure BtnMergeClick(Sender: TObject);
     procedure BtnOKClick(Sender: TObject);
     procedure ItemChange(Sender: TObject);
+    procedure ChkBestHuntingColumnsClick(Sender: TObject);
   private
     { Private declarations }
     FConfig: TConfig;
@@ -97,6 +101,8 @@ begin
   EditAnalyzerDarkGreenNumberPercent.Enabled := ChkUseAnalyzerDarkGreenNumberPercent.Checked;
   LblUseAnalyzerDarkGreenNumberPercent.Enabled := ChkUseAnalyzerDarkGreenNumberPercent.Checked;
 
+  ChkColorByCreature.Enabled := ChkBestHuntingColumns.Checked;
+
   BtnOK.Enabled := (not ChkUseAnalyzerGreenNumberPercent.Checked or (StrToIntDef(EditAnalyzerGreenNumberPercent.Text, -1) >= 0)) and
                    (not ChkUseAnalyzerDarkGreenNumberPercent.Checked  or (StrToIntDef(EditAnalyzerDarkGreenNumberPercent.Text, -1) >= 0)) and
                    (StrToIntDef(EditMinimumKills.Text, -1) >= 0);
@@ -134,6 +140,9 @@ begin
   else
     RadioExportValues.Checked := True;
   ChkLimitInvCubeCharges.Checked := FConfig.LimitInvCubeCharges;
+  ChkHideBeerRealm.Checked := FConfig.HideBeerRealm;
+  ChkBestHuntingColumns.Checked := FConfig.BestHuntingColumns;
+  ChkColorByCreature.Checked := FConfig.ColorByCreature;
 
   FUpdateUI();
 end;
@@ -163,8 +172,16 @@ begin
   if FConfig.UseAnalyzeHigh then
     FConfig.AnalyzeHighPercent := StrToInt(EditAnalyzerGreenNumberPercent.Text);
   FConfig.LimitInvCubeCharges := ChkLimitInvCubeCharges.Checked;
+  FConfig.HideBeerRealm :=  ChkHideBeerRealm.Checked;
+  FConfig.BestHuntingColumns :=  ChkBestHuntingColumns.Checked;
+  FConfig.ColorByCreature :=  ChkColorByCreature.Checked;
 
   FConfig.WriteValues(False);
+end;
+
+procedure TDlgPreferences.ChkBestHuntingColumnsClick(Sender: TObject);
+begin
+  FUpdateUI();
 end;
 
 procedure TDlgPreferences.ItemChange( Sender: TObject);

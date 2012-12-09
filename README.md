@@ -26,6 +26,13 @@ The data is stored locally in an few .ini files and updated as you explore and p
 The right side holds some shortcut buttons - so you can go from cube transmutions STRAIGHT to the dragon tavern, without having to go "return to location" first.
 There's a detail box for your current zone info, and it will update (+1), and show info about any other zone you want - like subzones.
 
+---------------------------------------------------------------------------------
+1.0.9 : 201x
+---------------------------------------------------------------------------------
+Data analysis dialog (F9):
+* Added ability to show the best 2 creatures to hunt for each location instead of all creatures. You can set this option in the preferences dialog.
+* Added ability to sort the "best 2" columns by kill % or by creature type. Set this option in the preferences dialog.
+* Added ability to hide "beer dragon realms" data. Set this option in the preferences dialog.
 
 ---------------------------------------------------------------------------------
 1.0.8 : 20121106

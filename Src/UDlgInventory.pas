@@ -160,7 +160,7 @@ end;
 
 procedure TDlgInventory.FUpdateUI();
 var
-  I, SelCount: Integer;
+  SelCount: Integer;
 begin
   SelCount := GetSelItemCount();
   LblItemsSelectedCount.Caption := IntToStr(SelCount);

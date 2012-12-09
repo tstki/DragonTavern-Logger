@@ -2,7 +2,7 @@ object DlgPreferences: TDlgPreferences
   Left = 0
   Top = 0
   Caption = 'Preferences'
-  ClientHeight = 408
+  ClientHeight = 455
   ClientWidth = 668
   Color = clBtnFace
   Constraints.MinWidth = 684
@@ -18,12 +18,12 @@ object DlgPreferences: TDlgPreferences
   OnDestroy = FormDestroy
   DesignSize = (
     668
-    408)
+    455)
   PixelsPerInch = 96
   TextHeight = 13
   object GroupBox1: TGroupBox
     Left = 328
-    Top = 159
+    Top = 207
     Width = 332
     Height = 202
     Anchors = [akLeft, akTop, akRight]
@@ -110,7 +110,7 @@ object DlgPreferences: TDlgPreferences
   end
   object BtnOK: TButton
     Left = 8
-    Top = 375
+    Top = 422
     Width = 75
     Height = 25
     Anchors = [akLeft, akBottom]
@@ -119,11 +119,11 @@ object DlgPreferences: TDlgPreferences
     ModalResult = 1
     TabOrder = 4
     OnClick = BtnOKClick
-    ExplicitTop = 338
+    ExplicitTop = 390
   end
   object BtnCancel: TButton
     Left = 89
-    Top = 375
+    Top = 422
     Width = 75
     Height = 25
     Anchors = [akLeft, akBottom]
@@ -131,13 +131,13 @@ object DlgPreferences: TDlgPreferences
     Caption = 'Cancel'
     ModalResult = 2
     TabOrder = 5
-    ExplicitTop = 338
+    ExplicitTop = 390
   end
   object GroupBox2: TGroupBox
     Left = 8
     Top = 8
     Width = 314
-    Height = 145
+    Height = 193
     Caption = 'Interface'
     TabOrder = 0
     object Label3: TLabel
@@ -166,7 +166,7 @@ object DlgPreferences: TDlgPreferences
     object ChkShowDataBoxes: TCheckBox
       Left = 153
       Top = 25
-      Width = 160
+      Width = 145
       Height = 17
       Caption = 'Show data boxes'
       TabOrder = 1
@@ -200,7 +200,7 @@ object DlgPreferences: TDlgPreferences
     Left = 328
     Top = 8
     Width = 332
-    Height = 145
+    Height = 193
     Anchors = [akLeft, akTop, akRight]
     Caption = 'Analyzer'
     TabOrder = 1
@@ -283,10 +283,35 @@ object DlgPreferences: TDlgPreferences
       TabOrder = 5
       OnClick = ItemChange
     end
+    object ChkHideBeerRealm: TCheckBox
+      Left = 15
+      Top = 127
+      Width = 154
+      Height = 17
+      Caption = 'Hide dragon realms'
+      TabOrder = 6
+    end
+    object ChkBestHuntingColumns: TCheckBox
+      Left = 15
+      Top = 150
+      Width = 186
+      Height = 17
+      Caption = 'Show only best hunting columns'
+      TabOrder = 7
+      OnClick = ChkBestHuntingColumnsClick
+    end
+    object ChkColorByCreature: TCheckBox
+      Left = 23
+      Top = 167
+      Width = 178
+      Height = 17
+      Caption = 'Order by creature type'
+      TabOrder = 8
+    end
   end
   object GroupBox4: TGroupBox
     Left = 8
-    Top = 159
+    Top = 207
     Width = 314
     Height = 138
     Caption = 'Pre-Login'
@@ -337,9 +362,9 @@ object DlgPreferences: TDlgPreferences
   end
   object GroupBox5: TGroupBox
     Left = 8
-    Top = 303
+    Top = 352
     Width = 314
-    Height = 58
+    Height = 57
     Caption = 'Inventory Dialog'
     TabOrder = 6
     object ChkLimitInvCubeCharges: TCheckBox
