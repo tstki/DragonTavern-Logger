@@ -259,7 +259,7 @@ begin
 
   LvAnalyze.Clear;
   try
-    FZones.GetZoneNames(ZoneList, True);
+    FZones.GetZoneObjects(ZoneList, True);
 
     for i:=0 to ZoneList.Count-1 do begin
       ZoneData.Clear();

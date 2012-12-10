@@ -195,6 +195,14 @@ object DlgPreferences: TDlgPreferences
       Caption = 'Lazy zone view'
       TabOrder = 5
     end
+    object ChkDynamicDataview: TCheckBox
+      Left = 15
+      Top = 139
+      Width = 234
+      Height = 17
+      Caption = 'Dynamic data view - best hunting columns'
+      TabOrder = 6
+    end
   end
   object GroupBox3: TGroupBox
     Left = 328
@@ -288,7 +296,10 @@ object DlgPreferences: TDlgPreferences
       Top = 127
       Width = 154
       Height = 17
-      Caption = 'Hide dragon realms'
+      Hint = 
+        'The beer dragon realms were a special event only available durin' +
+        'g the year of the dragon celebration'
+      Caption = 'Hide beer dragon realms'
       TabOrder = 6
     end
     object ChkBestHuntingColumns: TCheckBox

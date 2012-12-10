@@ -64,6 +64,7 @@ type
     FHideBeerRealm: Boolean;
     FBestHuntingColumns: Boolean;
     FColorByCreature: Boolean;
+    FDynamicDataview: Boolean;
 
   public
     { Public declarations }
@@ -120,6 +121,7 @@ type
     property HideBeerRealm: Boolean read FHideBeerRealm write FHideBeerRealm;
     property BestHuntingColumns: Boolean read FBestHuntingColumns write FBestHuntingColumns;
     property ColorByCreature: Boolean read FColorByCreature write FColorByCreature;
+    property DynamicDataview: Boolean read FDynamicDataview write FDynamicDataview;
   end;
 
 implementation
@@ -195,9 +197,10 @@ begin
     FFilterAnalyzerIndex := appINI.ReadInteger('Customization', 'FilterAnalyzerIndex', 0);
     FFilterAnalyzerValue := appINI.ReadInteger('Customization', 'FilterAnalyzerValue', 25);
     FLimitInvCubeCharges := appINI.ReadBool('Customization', 'LimitInvCubeCharges', False);
-    FHideBeerRealm := appINI.ReadBool('Customization', 'HideBeerRealm', False);
-    FBestHuntingColumns := appINI.ReadBool('Customization', 'BestHuntingColumns', False);
+    FHideBeerRealm := appINI.ReadBool('Customization', 'HideBeerRealm', True);
+    FBestHuntingColumns := appINI.ReadBool('Customization', 'BestHuntingColumns', True);
     FColorByCreature := appINI.ReadBool('Customization', 'ColorByCreature', False);
+    FDynamicDataview := appINI.ReadBool('Customization', 'DynamicDataview', True);
   finally
     appINI.Free;
   end;
@@ -267,6 +270,7 @@ begin
       appIni.WriteBool('Customization', 'HideBeerRealm', FHideBeerRealm);
       appIni.WriteBool('Customization', 'BestHuntingColumns', FBestHuntingColumns);
       appIni.WriteBool('Customization', 'ColorByCreature', FColorByCreature);
+      appIni.WriteBool('Customization', 'DynamicDataview', FDynamicDataview);
     end;
 
   finally

@@ -49,6 +49,7 @@ type
     ChkHideBeerRealm: TCheckBox;
     ChkBestHuntingColumns: TCheckBox;
     ChkColorByCreature: TCheckBox;
+    ChkDynamicDataview: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure BtnMergeClick(Sender: TObject);
@@ -143,6 +144,7 @@ begin
   ChkHideBeerRealm.Checked := FConfig.HideBeerRealm;
   ChkBestHuntingColumns.Checked := FConfig.BestHuntingColumns;
   ChkColorByCreature.Checked := FConfig.ColorByCreature;
+  ChkDynamicDataview.Checked := FConfig.DynamicDataview;
 
   FUpdateUI();
 end;
@@ -175,6 +177,7 @@ begin
   FConfig.HideBeerRealm :=  ChkHideBeerRealm.Checked;
   FConfig.BestHuntingColumns :=  ChkBestHuntingColumns.Checked;
   FConfig.ColorByCreature :=  ChkColorByCreature.Checked;
+  FConfig.DynamicDataview := ChkDynamicDataview.Checked;
 
   FConfig.WriteValues(False);
 end;

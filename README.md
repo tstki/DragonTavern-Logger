@@ -29,10 +29,16 @@ There's a detail box for your current zone info, and it will update (+1), and sh
 ---------------------------------------------------------------------------------
 1.0.9 : 201x
 ---------------------------------------------------------------------------------
+* Increase/decrease difficulty buttons added to main interface.
+* Main interface slightly narrowed, to allow more room for the second data view panel.
+* Fixed a number of missing popup button descriptions.
+* The bar is now filled with random patrons.
+* Added "Dynamic Data view" option. Which adds the ability to view the best 2 hunting columns for each subzone in the selected or recent zone. This option is enabled by default, you can disable it in the options.
+
 Data analysis dialog (F9):
-* Added ability to show the best 2 creatures to hunt for each location instead of all creatures. You can set this option in the preferences dialog.
-* Added ability to sort the "best 2" columns by kill % or by creature type. Set this option in the preferences dialog.
-* Added ability to hide "beer dragon realms" data. Set this option in the preferences dialog.
+* Added option to show the best 2 creatures to hunt for each location instead of all creatures. This option is enabled by default.
+* Added option to sort the "best 2" columns by kill % or by creature type.
+* Added option to hide "beer dragon realms" data. Set this option in the preferences dialog. This option is enabled by default.
 
 ---------------------------------------------------------------------------------
 1.0.8 : 20121106

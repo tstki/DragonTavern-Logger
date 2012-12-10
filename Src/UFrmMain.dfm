@@ -159,7 +159,7 @@ object FrmDBrowser: TFrmDBrowser
       714)
     object LblLanguage: TLabel
       Left = 6
-      Top = 507
+      Top = 476
       Width = 30
       Height = 13
       Caption = 'Show:'
@@ -173,21 +173,21 @@ object FrmDBrowser: TFrmDBrowser
     end
     object Label2: TLabel
       Left = 6
-      Top = 227
+      Top = 196
       Width = 28
       Height = 13
       Caption = 'Zone:'
     end
     object LblCurZoneTitle: TLabel
       Left = 42
-      Top = 227
+      Top = 196
       Width = 12
       Height = 13
       Caption = '...'
     end
     object CbxShow: TComboBox
       Left = 42
-      Top = 504
+      Top = 473
       Width = 159
       Height = 21
       Style = csDropDownList
@@ -195,15 +195,16 @@ object FrmDBrowser: TFrmDBrowser
       DoubleBuffered = True
       DropDownCount = 30
       ParentDoubleBuffered = False
-      TabOrder = 13
+      TabOrder = 15
       OnChange = CbxShowChange
     end
     object BtnReturnToTavern: TButton
       Left = 6
       Top = 25
-      Width = 121
+      Width = 83
       Height = 25
       Action = ActReturnToTavern
+      Caption = 'Tavern'
       DoubleBuffered = True
       Images = ImlFrmMain
       ParentDoubleBuffered = False
@@ -211,90 +212,13 @@ object FrmDBrowser: TFrmDBrowser
       ShowHint = True
       TabOrder = 0
     end
-    object Button5: TButton
+    object BtnCharacter: TButton
       Left = 6
       Top = 56
-      Width = 121
+      Width = 83
       Height = 25
       Action = ActCharsheet
-      DoubleBuffered = True
-      Images = ImlFrmMain
-      ParentDoubleBuffered = False
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 2
-    end
-    object Button6: TButton
-      Left = 133
-      Top = 25
-      Width = 121
-      Height = 25
-      Action = ActAdvantages
-      DoubleBuffered = True
-      Images = ImlFrmMain
-      ParentDoubleBuffered = False
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 1
-    end
-    object BtnReturnToLocation: TButton
-      Left = 6
-      Top = 87
-      Width = 121
-      Height = 25
-      Action = ActReturnToLocation
-      DoubleBuffered = True
-      Images = ImlFrmMain
-      ParentDoubleBuffered = False
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 4
-    end
-    object BtnShowInventory: TButton
-      Left = 6
-      Top = 118
-      Width = 74
-      Height = 25
-      Action = ActInventory
-      DoubleBuffered = True
-      Images = ImlFrmMain
-      ParentDoubleBuffered = False
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 6
-    end
-    object Button9: TButton
-      Left = 133
-      Top = 87
-      Width = 121
-      Height = 25
-      Action = ActRankings
-      DoubleBuffered = True
-      Images = ImlFrmMain
-      ParentDoubleBuffered = False
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 5
-    end
-    object Button10: TButton
-      Left = 6
-      Top = 157
-      Width = 121
-      Height = 25
-      Action = ActGoCharList
-      DoubleBuffered = True
-      Images = ImlFrmMain
-      ParentDoubleBuffered = False
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 9
-    end
-    object Button11: TButton
-      Left = 133
-      Top = 56
-      Width = 121
-      Height = 25
-      Action = ActRecentHappenings
+      Caption = 'Character'
       DoubleBuffered = True
       Images = ImlFrmMain
       ParentDoubleBuffered = False
@@ -302,12 +226,52 @@ object FrmDBrowser: TFrmDBrowser
       ShowHint = True
       TabOrder = 3
     end
-    object Button12: TButton
-      Left = 133
-      Top = 118
-      Width = 121
+    object BtnAdvantages: TButton
+      Left = 168
+      Top = 25
+      Width = 86
       Height = 25
-      Action = ActCompetitionGroups
+      Action = ActAdvantages
+      DoubleBuffered = True
+      Images = ImlFrmMain
+      ParentDoubleBuffered = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 2
+    end
+    object BtnReturnToLocation: TButton
+      Left = 6
+      Top = 87
+      Width = 83
+      Height = 25
+      Action = ActReturnToLocation
+      Caption = 'Return'
+      DoubleBuffered = True
+      Images = ImlFrmMain
+      ParentDoubleBuffered = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 6
+    end
+    object BtnShowInventory: TButton
+      Left = 6
+      Top = 118
+      Width = 83
+      Height = 25
+      Action = ActInventory
+      DoubleBuffered = True
+      Images = ImlFrmMain
+      ParentDoubleBuffered = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 9
+    end
+    object BtnRankings: TButton
+      Left = 168
+      Top = 87
+      Width = 86
+      Height = 25
+      Action = ActRankings
       DoubleBuffered = True
       Images = ImlFrmMain
       ParentDoubleBuffered = False
@@ -315,12 +279,41 @@ object FrmDBrowser: TFrmDBrowser
       ShowHint = True
       TabOrder = 8
     end
-    object Button13: TButton
-      Left = 6
-      Top = 188
-      Width = 121
+    object BtnCharacterList: TButton
+      Left = 95
+      Top = 25
+      Width = 67
       Height = 25
-      Action = ActGoForums
+      Action = ActGoCharList
+      Caption = 'Chars'
+      DoubleBuffered = True
+      Images = ImlFrmMain
+      ParentDoubleBuffered = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 1
+    end
+    object BtnRecentEvents: TButton
+      Left = 168
+      Top = 56
+      Width = 86
+      Height = 25
+      Action = ActRecentHappenings
+      Caption = 'Recent'
+      DoubleBuffered = True
+      Images = ImlFrmMain
+      ParentDoubleBuffered = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 5
+    end
+    object BtnCompetitionGroups: TButton
+      Left = 168
+      Top = 118
+      Width = 86
+      Height = 25
+      Action = ActCompetitionGroups
+      Caption = 'Competition'
       DoubleBuffered = True
       Images = ImlFrmMain
       ParentDoubleBuffered = False
@@ -328,25 +321,12 @@ object FrmDBrowser: TFrmDBrowser
       ShowHint = True
       TabOrder = 11
     end
-    object Button4: TButton
-      Left = 133
+    object BtnForums: TButton
+      Left = 6
       Top = 157
-      Width = 121
+      Width = 84
       Height = 25
-      Action = ActGoAccountSettings
-      DoubleBuffered = True
-      Images = ImlFrmMain
-      ParentDoubleBuffered = False
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 10
-    end
-    object Button7: TButton
-      Left = 133
-      Top = 188
-      Width = 121
-      Height = 25
-      Action = ActGoFaq
+      Action = ActGoForums
       DoubleBuffered = True
       Images = ImlFrmMain
       ParentDoubleBuffered = False
@@ -354,36 +334,64 @@ object FrmDBrowser: TFrmDBrowser
       ShowHint = True
       TabOrder = 12
     end
+    object BtnAccountSettings: TButton
+      Left = 96
+      Top = 157
+      Width = 66
+      Height = 25
+      Action = ActGoAccountSettings
+      Caption = 'Account'
+      DoubleBuffered = True
+      Images = ImlFrmMain
+      ParentDoubleBuffered = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 13
+    end
+    object BtnFaq: TButton
+      Left = 168
+      Top = 157
+      Width = 86
+      Height = 25
+      Action = ActGoFaq
+      DoubleBuffered = True
+      Images = ImlFrmMain
+      ParentDoubleBuffered = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 14
+    end
     object Panel3: TPanel
       Left = 6
-      Top = 219
+      Top = 188
       Width = 248
       Height = 2
-      TabOrder = 14
+      TabOrder = 16
     end
     object Panel4: TPanel
       Left = 6
       Top = 149
       Width = 248
       Height = 2
-      TabOrder = 15
+      TabOrder = 17
     end
     object BtnShowInventoryList: TButton
-      Left = 82
+      Left = 95
       Top = 118
-      Width = 45
+      Width = 67
       Height = 25
       Action = ActInventoryList
+      Caption = 'List'
       DoubleBuffered = True
       Images = ImlFrmMain
       ParentDoubleBuffered = False
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 7
+      TabOrder = 10
     end
     object LvActiveZoneData: TListView
       Left = 0
-      Top = 246
+      Top = 215
       Width = 261
       Height = 252
       Anchors = [akLeft, akTop, akRight]
@@ -409,7 +417,7 @@ object FrmDBrowser: TFrmDBrowser
       ReadOnly = True
       RowSelect = True
       SortType = stData
-      TabOrder = 16
+      TabOrder = 18
       ViewStyle = vsReport
       OnAdvancedCustomDrawItem = LvActiveZoneDataAdvancedCustomDrawItem
       OnColumnClick = LvActiveZoneDataColumnClick
@@ -417,9 +425,9 @@ object FrmDBrowser: TFrmDBrowser
     end
     object LvDataView: TListView
       Left = 0
-      Top = 531
+      Top = 501
       Width = 261
-      Height = 183
+      Height = 213
       Anchors = [akLeft, akTop, akRight, akBottom]
       Columns = <
         item
@@ -442,15 +450,15 @@ object FrmDBrowser: TFrmDBrowser
         end>
       ReadOnly = True
       RowSelect = True
-      TabOrder = 17
+      TabOrder = 19
       ViewStyle = vsReport
       OnAdvancedCustomDrawItem = LvDataViewAdvancedCustomDrawItem
       OnColumnClick = LvDataViewColumnClick
       OnCompare = LvDataViewCompare
     end
-    object Button2: TButton
+    object BtnRefresh: TButton
       Left = 207
-      Top = 503
+      Top = 472
       Width = 23
       Height = 23
       Action = ActRefreshDataView
@@ -460,11 +468,11 @@ object FrmDBrowser: TFrmDBrowser
       ParentDoubleBuffered = False
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 18
+      TabOrder = 20
     end
     object BtnDataAnalyzer: TButton
       Left = 233
-      Top = 503
+      Top = 472
       Width = 23
       Height = 23
       Action = ActAnalyze
@@ -474,7 +482,35 @@ object FrmDBrowser: TFrmDBrowser
       ParentDoubleBuffered = False
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 19
+      TabOrder = 21
+    end
+    object BtnIncreaseDifficulty: TButton
+      Left = 95
+      Top = 56
+      Width = 67
+      Height = 25
+      Action = ActIncreaseDifficulty
+      Caption = 'Inc'
+      DoubleBuffered = True
+      Images = ImlFrmMain
+      ParentDoubleBuffered = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 4
+    end
+    object BtnDecreaseDifficulty: TButton
+      Left = 95
+      Top = 87
+      Width = 67
+      Height = 25
+      Action = ActDecreaseDifficulty
+      Caption = 'Dec'
+      DoubleBuffered = True
+      Images = ImlFrmMain
+      ParentDoubleBuffered = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 7
     end
   end
   object ImlFrmMain: TImageList
@@ -1850,7 +1886,7 @@ object FrmDBrowser: TFrmDBrowser
     object ActReturnToTavern: TAction
       Category = 'Travel'
       Caption = 'Return to Tavern'
-      Hint = 'Return to Tavern'
+      Hint = 'Return to tavern'
       ImageIndex = 10
       OnExecute = ActReturnToTavernExecute
     end
@@ -1963,30 +1999,35 @@ object FrmDBrowser: TFrmDBrowser
     object ActGoLogin: TAction
       Category = 'Account'
       Caption = 'Login'
+      Hint = 'Login'
       ImageIndex = 28
       OnExecute = ActGoLoginExecute
     end
     object ActGoReferral: TAction
       Category = 'Account'
       Caption = 'Referral System'
+      Hint = 'Referral system'
       ImageIndex = 30
       OnExecute = ActGoReferralExecute
     end
     object ActGoReplenish: TAction
       Category = 'Account'
       Caption = 'Replenish Credits'
+      Hint = 'Replenish credits'
       ImageIndex = 19
       OnExecute = ActGoReplenishExecute
     end
     object ActPageSource: TAction
       Category = 'Browser'
       Caption = 'Page source...'
+      Hint = 'Show page source'
       ImageIndex = 21
       OnExecute = ActPageSourceExecute
     end
     object ActExitApplication: TAction
       Category = 'Application'
       Caption = 'Exit'
+      Hint = 'Exit application'
       ImageIndex = 22
       ShortCut = 32883
       OnExecute = ActExitApplicationExecute
@@ -1994,6 +2035,7 @@ object FrmDBrowser: TFrmDBrowser
     object ActOptions: TAction
       Category = 'Application'
       Caption = 'Options...'
+      Hint = 'Options'
       ImageIndex = 20
       ShortCut = 122
       OnExecute = ActOptionsExecute
@@ -2001,48 +2043,56 @@ object FrmDBrowser: TFrmDBrowser
     object ActPublicPage: TAction
       Category = 'Character'
       Caption = 'Public Page'
+      Hint = 'Public character page'
       ImageIndex = 18
       OnExecute = ActPublicPageExecute
     end
     object ActTitles: TAction
       Category = 'Character'
       Caption = 'Change Title'
+      Hint = 'Change title'
       ImageIndex = 23
       OnExecute = ActTitlesExecute
     end
     object ActDecreaseDifficulty: TAction
       Category = 'Travel'
       Caption = 'Decrease Difficulty'
+      Hint = 'Decrease difficulty'
       ImageIndex = 25
       OnExecute = ActDecreaseDifficultyExecute
     end
     object ActIncreaseDifficulty: TAction
       Category = 'Travel'
       Caption = 'Increase Difficulty'
+      Hint = 'Increase difficulty'
       ImageIndex = 24
       OnExecute = ActIncreaseDifficultyExecute
     end
     object ActGoLogout: TAction
       Category = 'Account'
       Caption = 'Logout'
+      Hint = 'Logout'
       ImageIndex = 27
       OnExecute = ActGoLogoutExecute
     end
     object ActExplore: TAction
       Category = 'Travel'
       Caption = 'Explore'
+      Hint = 'Explore again'
       ImageIndex = 34
       OnExecute = ActExploreExecute
     end
     object ActNewsArchive: TAction
       Category = 'Account'
       Caption = 'News Archive'
+      Hint = 'News archive'
       ImageIndex = 33
       OnExecute = ActNewsArchiveExecute
     end
     object ActAnalyze: TAction
       Category = 'Application'
       Caption = 'Data analysis...'
+      Hint = 'Data analysis'
       ImageIndex = 17
       ShortCut = 120
       OnExecute = ActAnalyzeExecute
@@ -2050,6 +2100,7 @@ object FrmDBrowser: TFrmDBrowser
     object ActExportData: TAction
       Category = 'Application'
       Caption = 'Export data...'
+      Hint = 'Export data'
       ImageIndex = 35
       OnExecute = ActExportDataExecute
     end

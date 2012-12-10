@@ -32,17 +32,17 @@ type
     CbxShow: TComboBox;
     Label1: TLabel;
     BtnReturnToTavern: TButton;
-    Button5: TButton;
-    Button6: TButton;
+    BtnCharacter: TButton;
+    BtnAdvantages: TButton;
     BtnReturnToLocation: TButton;
     BtnShowInventory: TButton;
-    Button9: TButton;
-    Button10: TButton;
-    Button11: TButton;
-    Button12: TButton;
-    Button13: TButton;
-    Button4: TButton;
-    Button7: TButton;
+    BtnRankings: TButton;
+    BtnCharacterList: TButton;
+    BtnRecentEvents: TButton;
+    BtnCompetitionGroups: TButton;
+    BtnForums: TButton;
+    BtnAccountSettings: TButton;
+    BtnFaq: TButton;
     Panel3: TPanel;
     Panel4: TPanel;
     ActReturnToTavern: TAction;
@@ -120,12 +120,14 @@ type
     NewsArchive1: TMenuItem;
     LvActiveZoneData: TListView;
     LvDataView: TListView;
-    Button2: TButton;
+    BtnRefresh: TButton;
     ActRefreshDataView: TAction;
     ActAnalyze: TAction;
     BtnDataAnalyzer: TButton;
     ActExportData: TAction;
     Exportdata1: TMenuItem;
+    BtnIncreaseDifficulty: TButton;
+    BtnDecreaseDifficulty: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure WebBrowser1StatusTextChange(ASender: TObject; const Text: WideString);
@@ -185,6 +187,7 @@ type
     FCurrentZone: String;
     FWantInventoryList: Boolean;
     FDlgAnalyze: TDlgAnalyze;
+    FRecentZone: String;
 //    FZVSortDescending: Boolean;
 //    FZVSortColumn: Integer;
 //    FDVSortDescending: Boolean;
@@ -194,6 +197,7 @@ type
     procedure FUpdateUI();
     procedure FFillZonePulldown();
     procedure FShowZoneInfoByName(ZoneName, creatureType: String; DataView: TListView);
+    procedure FShowDynamicZoneInfoByName(ZoneName: String; DataView: TListView);
     procedure FListViewAddItem(View: TListView; Data: TDataRow; New: Boolean);
     procedure FUpdateDataView();
     procedure FUpdateCurrentDataView(ZoneName, creatureType: String);
@@ -351,7 +355,7 @@ begin
   FCheckVersion();
 
   FZoneNames := TObjectList.Create;
-  FZoneConfig.GetZoneNames(FZoneNames, True);
+  FZoneConfig.GetZoneObjects(FZoneNames, True);
 
   LvDataView.Clear;
   FFillZonePulldown();
@@ -359,7 +363,6 @@ begin
 
   WebBrowser1.Navigate(cRefUrl);
 
-  BtnShowInventoryList.Caption := 'List';
   BtnDataAnalyzer.Caption := '';
   CbxShow.Perform(CB_SETDROPPEDWIDTH, 215, 0);
 
@@ -406,11 +409,20 @@ begin
   CbxShow.Clear();
   CbxShow.AddItem(cNoneStr, nil);
 
-  for I := 0 to FZoneNames.Count - 1 do begin
-    if(TZoneObj(FZoneNames[I]).AmSubZone) then
-      CbxShow.AddItem(' - ' + TZoneObj(FZoneNames[I]).Name + ' ' + TZoneObj(FZoneNames[I]).LevelRange, FZoneNames[I])
-    else
-      CbxShow.AddItem(' ' + TZoneObj(FZoneNames[I]).Name + ' ' + TZoneObj(FZoneNames[I]).LevelRange, FZoneNames[I]);
+  if FConfig.DynamicDataview then begin
+    CbxShow.AddItem(cRecentStr, nil);
+
+    for I := 0 to FZoneNames.Count - 1 do begin
+      if not TZoneObj(FZoneNames[I]).AmSubZone then
+        CbxShow.AddItem(' ' + TZoneObj(FZoneNames[I]).Name + ' ' + TZoneObj(FZoneNames[I]).LevelRange, FZoneNames[I]);
+    end;
+  end else begin
+    for I := 0 to FZoneNames.Count - 1 do begin
+      if TZoneObj(FZoneNames[I]).AmSubZone then
+        CbxShow.AddItem(' - ' + TZoneObj(FZoneNames[I]).Name + ' ' + TZoneObj(FZoneNames[I]).LevelRange, FZoneNames[I])
+      else
+        CbxShow.AddItem(' ' + TZoneObj(FZoneNames[I]).Name + ' ' + TZoneObj(FZoneNames[I]).LevelRange, FZoneNames[I]);
+    end;
   end;
 
   CbxShow.ItemIndex := 0;
@@ -1077,7 +1089,7 @@ procedure TFrmDBrowser.ActExportDataExecute(Sender: TObject);
     ZoneData := TDataList.Create();
     ColumnNames := TStringList.Create();
     try
-      FZoneConfig.GetZoneNames(ZoneList, True);
+      FZoneConfig.GetZoneObjects(ZoneList, True);
       ColumnNames.CommaText := FConfig.AnalyzeCreatures;
 
       HeaderText := 'Zone;Sub Zone;Levels;Total kills;';
@@ -1109,10 +1121,10 @@ var
 begin
   saveDialog := TSaveDialog.Create(self);
   try
-    saveDialog.Title := 'Export data to file';
+    saveDialog.Title := strExportToFile;
     saveDialog.InitialDir := GetCurrentDir;
     saveDialog.Filter := 'CSV File|*.csv';
-    saveDialog.DefaultExt := 'csv';
+    saveDialog.DefaultExt := strExportCsvExt;
     saveDialog.FilterIndex := 1;
 
     if saveDialog.Execute then begin
@@ -1164,11 +1176,22 @@ var
   idx: Integer;
 begin
   idx := CbxShow.Items.IndexOf(CbxShow.Text);
-  if idx <> 0 then begin
-    ZoneName := TZoneObj(CbxShow.Items.Objects[CbxShow.Items.IndexOf(CbxShow.Text)]).Name;
-    FShowZoneInfoByName(ZoneName, '', LvDataView);
-  end else
-    LvDataView.Clear;
+
+  if idx = 0 then
+    LvDataView.Clear
+  else begin
+    if FConfig.DynamicDataview then begin
+      // Show sub zone data
+      if idx = 1 then
+        ZoneName := FRecentZone
+      else
+        ZoneName := TZoneObj(CbxShow.Items.Objects[CbxShow.Items.IndexOf(CbxShow.Text)]).Name;
+      FShowDynamicZoneInfoByName(ZoneName, LvDataView);
+    end else begin
+      ZoneName := TZoneObj(CbxShow.Items.Objects[CbxShow.Items.IndexOf(CbxShow.Text)]).Name;
+      FShowZoneInfoByName(ZoneName, '', LvDataView);
+    end;
+  end;
 end;
 
 procedure TFrmDBrowser.FListViewAddItem(View: TListView; Data: TDataRow; New: Boolean);
@@ -1186,11 +1209,87 @@ begin
   Li.SubItems.Add(IfThen(New, '1', '0'));
 end;
 
+procedure TFrmDBrowser.FShowDynamicZoneInfoByName(ZoneName: String; DataView: TListView);
+  function FFCalcPercent(Kills, Total: Integer): String;
+  begin
+    Result := FormatFloat('0.00', (Kills/Total)*100);
+  end;
+
+  procedure FFAddZone(var ZoneData: TDataList; Caption, ZoneName: String);
+  var
+    I, TempKills, HighestKills, SecondHighestKills: Integer;
+    HighestKillsName, SecondHighestKillsName: String;
+    Li: TListItem;
+  begin
+    FDataConfig.GetZoneData(ZoneData, ZoneName);
+
+    Li := DataView.Items.Add;
+    Li.Caption := Caption;
+
+    HighestKills := 0;
+    SecondHighestKills := 0;
+    HighestKillsName := '';
+    SecondHighestKillsName := '';
+
+    for I:=0 to ZoneData.Count-1 do begin
+      if FConfig.IncludeHostData then
+        TempKills := TDataRow(ZoneData[I]).HostKills+TDataRow(ZoneData[I]).LocalKills
+      else
+        TempKills := TDataRow(ZoneData[I]).LocalKills;
+
+      if TempKills > HighestKills then begin
+        SecondHighestKills := HighestKills;
+        HighestKills := TempKills;
+        SecondHighestKillsName := HighestKillsName;
+        HighestKillsName := TDataRow(ZoneData[I]).CreatureName;
+      end else if TempKills > SecondHighestKills then begin
+        SecondHighestKills := TempKills;
+        SecondHighestKillsName := TDataRow(ZoneData[I]).CreatureName;
+      end;
+    end;
+
+    Li.SubItems.Add(HighestKillsName);
+    Li.SubItems.Add(SecondHighestKillsName);
+
+    ZoneData.Clear;
+  end;
+
+var
+  SubZones: TObjectList;
+  ZoneData: TDataList;
+  I: Integer;
+begin
+  DataView.Clear;
+  SubZones := TObjecTList.Create();
+  ZoneData := TDataList.Create();
+
+  try
+    FZoneConfig.GetSubZoneObjects(SubZones, ZoneName);
+    FFAddZone(ZoneData, ZoneName, ZoneName);
+    for I:=0 to SubZones.Count-1 do begin
+      FFAddZone(ZoneData, TZoneObj(SubZones[i]).Name + ' (' + TZoneObj(SubZones[i]).LevelRange + ')', TZoneObj(SubZones[i]).Name);
+    end;
+  finally
+    SubZones.Free();
+    ZoneData.Free();
+  end;
+end;
+
 procedure TFrmDBrowser.FShowZoneInfoByName(ZoneName, creatureType: String; DataView: TListView);
+  procedure FAddFakeInfo(Name: String; Count: Integer);
+  var
+    TmpDataRow: TDataRow;
+  begin
+    TmpDataRow := TDataRow.Create(Name, 0, Count);
+    try
+      FListViewAddItem(DataView, TmpDataRow, False);
+    finally
+      TmpDataRow.Free;
+    end;
+  end;
 var
   ZoneData: TDataList;
   I: Integer;
-  TmpDataRow: TDataRow;
 begin
   DataView.Clear;
 
@@ -1203,19 +1302,16 @@ begin
       FListViewAddItem(DataView, TDataRow(ZoneData[i]), (creatureType <> '') and AnsiStartsStr(creatureType, TDataRow(ZoneData[i]).CreatureName));
 
     // Just for fun :)
-    if ZoneName = 'Dragon Tavern' then begin
-      TmpDataRow := TDataRow.Create('Bar Wench',0,1);
-      try
-        FListViewAddItem(DataView, TmpDataRow, False);
-      finally
-        TmpDataRow.Free;
-      end;
+    if ZoneName = cTavernZoneName then begin
+      FAddFakeInfo(cCreatureWench, 1);
+      FAddFakeInfo(FCharName, 1);
+      Randomize();
+      FAddFakeInfo(cCreatureRandom, Random(70) + 2);
     end else if ZoneData.Count = 0 then // Show "no data"
       DataView.AddItem(cNoDataStr, nil);
 
     DataView.SortType := stNone;
     DataView.SortType := stData;
-
   finally
     ZoneData.Free();
   end;
@@ -1244,17 +1340,33 @@ begin
   ActTitles.Enabled := Enabled;
   ActPublicPage.Enabled := Enabled;
 
-  ActIncreaseDifficulty.Enabled := Enabled and (FCurrentZone <> '') and (FCurrentZone <> 'Dragon Tavern');
-  ActDecreaseDifficulty.Enabled := Enabled and (FCurrentZone <> '') and (FCurrentZone <> 'Dragon Tavern');
-  ActExplore.Enabled := Enabled and (FCurrentZone <> '') and (FCurrentZone <> 'Dragon Tavern');
-  ActReturnToTavern.Enabled := Enabled and (FCurrentZone <> 'Dragon Tavern');
+  ActIncreaseDifficulty.Enabled := Enabled and (FCurrentZone <> '') and (FCurrentZone <> cTavernZoneName);
+  ActDecreaseDifficulty.Enabled := Enabled and (FCurrentZone <> '') and (FCurrentZone <> cTavernZoneName);
+  ActExplore.Enabled := Enabled and (FCurrentZone <> '') and (FCurrentZone <> cTavernZoneName);
+  ActReturnToTavern.Enabled := Enabled and (FCurrentZone <> cTavernZoneName);
 
   LvActiveZoneData.Columns.Items[0].Width := IfThen(FConfig.HostLocalDataColumns, 110, 206);
   LvActiveZoneData.Columns.Items[1].Width := IfThen(FConfig.HostLocalDataColumns, 48, 0);
   LvActiveZoneData.Columns.Items[2].Width := IfThen(FConfig.HostLocalDataColumns, 48, 0);
-  LvDataView.Columns.Items[0].Width := IfThen(FConfig.HostLocalDataColumns, 110, 206);
-  LvDataView.Columns.Items[1].Width := IfThen(FConfig.HostLocalDataColumns, 48, 0);
-  LvDataView.Columns.Items[2].Width := IfThen(FConfig.HostLocalDataColumns, 48, 0);
+  if FConfig.DynamicDataview then begin
+    LvDataView.Columns.Items[0].Width := 120;
+    LvDataView.Columns.Items[1].Width := 68;
+    LvDataView.Columns.Items[2].Width := 68;
+    LvDataView.Columns.Items[3].Width := 0;
+    LvDataView.Columns.Items[1].Caption := 'Best';
+    LvDataView.Columns.Items[2].Caption := '2nd Best';
+  end else begin
+    LvDataView.Columns.Items[0].Width := IfThen(FConfig.HostLocalDataColumns, 110, 206);
+    LvDataView.Columns.Items[1].Width := IfThen(FConfig.HostLocalDataColumns, 48, 0);
+    LvDataView.Columns.Items[2].Width := IfThen(FConfig.HostLocalDataColumns, 48, 0);
+    if FConfig.HostLocalDataColumns then
+      LvDataView.Columns.Items[3].Width := 50;
+    LvDataView.Columns.Items[1].Caption := 'Host';
+    if FConfig.HostLocalDataColumns then
+      LvDataView.Columns.Items[2].Caption := 'Local'
+    else
+      LvDataView.Columns.Items[2].Caption := 'Total';
+  end;
 
   PnlBrowserBar.Height := IfThen(FConfig.ShowBrowserNavBar, 34, 0);
 end;
@@ -1262,11 +1374,11 @@ end;
 procedure TFrmDBrowser.LvActiveZoneDataAdvancedCustomDrawItem(Sender: TCustomListView; Item: TListItem; State: TCustomDrawState; Stage: TCustomDrawStage; var DefaultDraw: Boolean);
 begin
   // Draw the line with "new creature found" as bold style.
-  if (Item.SubItems.Count > 2) and (StrToIntDef(Item.SubItems[3],0) = 1) then
+  if (Item.SubItems.Count > 2) and (StrToIntDef(Item.SubItems[3], 0) = 1) then
     Sender.Canvas.Font.Style := Sender.Canvas.Font.Style + [fsBold];
 
   // Draw alternating row colors.
-  if Item.Index mod 2=0 then
+  if Item.Index mod 2 = 0 then
     Sender.Canvas.Brush.Color := $F6F6F6
   else
     Sender.Canvas.Brush.Color := clWhite;
@@ -1274,8 +1386,11 @@ end;
 
 procedure TFrmDBrowser.LvDataViewAdvancedCustomDrawItem(Sender: TCustomListView; Item: TListItem; State: TCustomDrawState; Stage: TCustomDrawStage; var DefaultDraw: Boolean);
 begin
+  if (Item.Index = 0) and (FConfig.DynamicDataview) then
+    Sender.Canvas.Font.Style := Sender.Canvas.Font.Style + [fsBold];
+
   // Draw alternating row colors.
-  if Item.Index mod 2=0 then
+  if Item.Index mod 2 = 0 then
     Sender.Canvas.Brush.Color := $F6F6F6
   else
     Sender.Canvas.Brush.Color := clWhite;
@@ -1298,9 +1413,9 @@ begin
   if FConfig.ZoneViewSortColumn = 0 then
     Compare := CompareText(Item1.Caption, Item2.Caption)
   else if (FConfig.ZoneViewSortColumn <> 0) and (Item1.SubItems.Count >= FConfig.ZoneViewSortColumn) then begin
-    if StrToIntDef(Item1.SubItems[FConfig.ZoneViewSortColumn-1],0) < StrToIntDef(Item2.SubItems[FConfig.ZoneViewSortColumn-1],0) then
+    if StrToIntDef(Item1.SubItems[FConfig.ZoneViewSortColumn-1], 0) < StrToIntDef(Item2.SubItems[FConfig.ZoneViewSortColumn-1], 0) then
       Compare := 1
-    else if StrToIntDef(Item1.SubItems[FConfig.ZoneViewSortColumn-1],0) > StrToIntDef(Item2.SubItems[FConfig.ZoneViewSortColumn-1],0) then
+    else if StrToIntDef(Item1.SubItems[FConfig.ZoneViewSortColumn-1], 0) > StrToIntDef(Item2.SubItems[FConfig.ZoneViewSortColumn-1], 0) then
       Compare := -1
     else
       Compare := 0;
@@ -1326,9 +1441,9 @@ begin
   if FConfig.DataViewSortColumn = 0 then
     Compare := CompareText(Item1.Caption, Item2.Caption)
   else if (FConfig.DataViewSortColumn <> 0) and (Item1.SubItems.Count >= FConfig.DataViewSortColumn) then begin
-    if StrToIntDef(Item1.SubItems[FConfig.DataViewSortColumn-1],0) < StrToIntDef(Item2.SubItems[FConfig.DataViewSortColumn-1],0) then
+    if StrToIntDef(Item1.SubItems[FConfig.DataViewSortColumn-1], 0) < StrToIntDef(Item2.SubItems[FConfig.DataViewSortColumn-1], 0) then
       Compare := 1
-    else if StrToIntDef(Item1.SubItems[FConfig.DataViewSortColumn-1],0) > StrToIntDef(Item2.SubItems[FConfig.DataViewSortColumn-1],0) then
+    else if StrToIntDef(Item1.SubItems[FConfig.DataViewSortColumn-1], 0) > StrToIntDef(Item2.SubItems[FConfig.DataViewSortColumn-1], 0) then
       Compare := -1
     else
       Compare := 0;

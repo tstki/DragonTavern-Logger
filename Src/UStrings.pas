@@ -3,14 +3,18 @@
 interface
 
 resourcestring
-  StrVersion            = '1.0.8';
+  StrVersion            = '1.0.9';
 
 const
   //
   cRefUrl               = 'http://www.dragontavern.com/?ref=shadows-bolts-75';
   cExploreStr           = '<A class=locName href="/char/';
   cNoneStr              = '- None -';
+  cRecentStr            = '- Recently visited - (NYI)';
   cNoDataStr            = 'No data available for this zone (yet)';
+  cTavernZoneName       = 'Dragon Tavern';
+  cCreatureWench        = 'Bar wench';
+  cCreatureRandom       = 'Bar patrons';
 
   cInventoryStr         = 'currently carrying the following items:';
   cInvItemNameStart     = '<LI><B>';
@@ -41,7 +45,10 @@ const
 
   strMergeWarning       = 'Merging your local data into the host file will delete your local findings. Doing this means your changes might be lost if the application is updated at a later time. Are you sure you wish to continue?';
   strNoUndo             = 'This action can not be reverted. Really sure?';
-  StrBeerDragonRealms   = 'Beer Dragon Realms';
+  strBeerDragonRealms   = 'Beer Dragon Realms';
+
+  strExportToFile       = 'Export data to file';
+  strExportCsvExt       = 'csv';
 
 implementation
 
