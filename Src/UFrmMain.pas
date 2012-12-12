@@ -187,7 +187,7 @@ type
     FCurrentZone: String;
     FWantInventoryList: Boolean;
     FDlgAnalyze: TDlgAnalyze;
-    FRecentZone: String;
+    FCurrentDataZone: String;
 //    FZVSortDescending: Boolean;
 //    FZVSortColumn: Integer;
 //    FDVSortDescending: Boolean;
@@ -598,7 +598,7 @@ end;
 
 function TFrmDBrowser.FGatherItems(var iall: IHTMLElement; InvItems: TInvItemList; var CubeCurCharges, CubeMaxCharges: Integer): Boolean;
 var
-  p1, p2, p3, p4, RarityVal : Integer;
+  p1, p2, p3, p4, RarityVal: Integer;
   tmpstr, itemName, itemRarity, itemWeight, itemValue, itemRecycleURL : String;
 begin
   //http://www.dragontavern.com/char/aeonus/inventory/
@@ -1157,6 +1157,8 @@ begin
 end;
 
 procedure TFrmDBrowser.FUpdateCurrentDataView(ZoneName, creatureType: String);
+var
+  ParentZone: String;
 begin
   if ZoneName <> '' then begin
     LblCurZoneTitle.Caption := ZoneName;
@@ -1167,6 +1169,18 @@ begin
     LvActiveZoneData.Clear;
     LvActiveZoneData.AddItem(strNoData, nil);
     FCurrentZone := '';
+  end;
+
+  if FConfig.DynamicDataview and (CbxShow.ItemIndex = 1) and not SameText(cTavernZoneName, ZoneName) then begin
+    if ZoneName = '' then
+      LvDataView.Clear
+    else if (FCurrentDataZone <> ZoneName) then begin
+      // Find the "parent zone"
+      ParentZone := FZoneConfig.GetParentZone(ZoneName);
+      // We could remember the parent zone for better load times.
+      FShowDynamicZoneInfoByName(ParentZone, LvDataView);
+    end;
+    FCurrentDataZone := ZoneName;
   end;
 end;
 
@@ -1182,9 +1196,11 @@ begin
   else begin
     if FConfig.DynamicDataview then begin
       // Show sub zone data
-      if idx = 1 then
-        ZoneName := FRecentZone
-      else
+      if idx = 1 then begin
+        ZoneName := FCurrentDataZone;
+        if ZoneName = '' then
+          ZoneName := LblCurZoneTitle.Caption;
+      end else
         ZoneName := TZoneObj(CbxShow.Items.Objects[CbxShow.Items.IndexOf(CbxShow.Text)]).Name;
       FShowDynamicZoneInfoByName(ZoneName, LvDataView);
     end else begin
@@ -1223,33 +1239,35 @@ procedure TFrmDBrowser.FShowDynamicZoneInfoByName(ZoneName: String; DataView: TL
   begin
     FDataConfig.GetZoneData(ZoneData, ZoneName);
 
-    Li := DataView.Items.Add;
-    Li.Caption := Caption;
+    if ZoneData.Count > 0 then begin
+      Li := DataView.Items.Add;
+      Li.Caption := Caption;
 
-    HighestKills := 0;
-    SecondHighestKills := 0;
-    HighestKillsName := '';
-    SecondHighestKillsName := '';
+      HighestKills := 0;
+      SecondHighestKills := 0;
+      HighestKillsName := '';
+      SecondHighestKillsName := '';
 
-    for I:=0 to ZoneData.Count-1 do begin
-      if FConfig.IncludeHostData then
-        TempKills := TDataRow(ZoneData[I]).HostKills+TDataRow(ZoneData[I]).LocalKills
-      else
-        TempKills := TDataRow(ZoneData[I]).LocalKills;
+      for I:=0 to ZoneData.Count-1 do begin
+        if FConfig.IncludeHostData then
+          TempKills := TDataRow(ZoneData[I]).HostKills+TDataRow(ZoneData[I]).LocalKills
+        else
+          TempKills := TDataRow(ZoneData[I]).LocalKills;
 
-      if TempKills > HighestKills then begin
-        SecondHighestKills := HighestKills;
-        HighestKills := TempKills;
-        SecondHighestKillsName := HighestKillsName;
-        HighestKillsName := TDataRow(ZoneData[I]).CreatureName;
-      end else if TempKills > SecondHighestKills then begin
-        SecondHighestKills := TempKills;
-        SecondHighestKillsName := TDataRow(ZoneData[I]).CreatureName;
+        if TempKills > HighestKills then begin
+          SecondHighestKills := HighestKills;
+          HighestKills := TempKills;
+          SecondHighestKillsName := HighestKillsName;
+          HighestKillsName := TDataRow(ZoneData[I]).CreatureName;
+        end else if TempKills > SecondHighestKills then begin
+          SecondHighestKills := TempKills;
+          SecondHighestKillsName := TDataRow(ZoneData[I]).CreatureName;
+        end;
       end;
-    end;
 
-    Li.SubItems.Add(HighestKillsName);
-    Li.SubItems.Add(SecondHighestKillsName);
+      Li.SubItems.Add(HighestKillsName);
+      Li.SubItems.Add(SecondHighestKillsName);
+    end;
 
     ZoneData.Clear;
   end;
@@ -1266,9 +1284,8 @@ begin
   try
     FZoneConfig.GetSubZoneObjects(SubZones, ZoneName);
     FFAddZone(ZoneData, ZoneName, ZoneName);
-    for I:=0 to SubZones.Count-1 do begin
+    for I:=0 to SubZones.Count-1 do
       FFAddZone(ZoneData, TZoneObj(SubZones[i]).Name + ' (' + TZoneObj(SubZones[i]).LevelRange + ')', TZoneObj(SubZones[i]).Name);
-    end;
   finally
     SubZones.Free();
     ZoneData.Free();

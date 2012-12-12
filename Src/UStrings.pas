@@ -10,7 +10,7 @@ const
   cRefUrl               = 'http://www.dragontavern.com/?ref=shadows-bolts-75';
   cExploreStr           = '<A class=locName href="/char/';
   cNoneStr              = '- None -';
-  cRecentStr            = '- Recently visited - (NYI)';
+  cRecentStr            = '- Active Zone -';
   cNoDataStr            = 'No data available for this zone (yet)';
   cTavernZoneName       = 'Dragon Tavern';
   cCreatureWench        = 'Bar wench';

@@ -311,7 +311,7 @@ object DlgPreferences: TDlgPreferences
       TabOrder = 7
       OnClick = ChkBestHuntingColumnsClick
     end
-    object ChkColorByCreature: TCheckBox
+    object ChkOrderByCreature: TCheckBox
       Left = 23
       Top = 167
       Width = 178

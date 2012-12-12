@@ -48,7 +48,7 @@ type
     ChkLimitInvCubeCharges: TCheckBox;
     ChkHideBeerRealm: TCheckBox;
     ChkBestHuntingColumns: TCheckBox;
-    ChkColorByCreature: TCheckBox;
+    ChkOrderByCreature: TCheckBox;
     ChkDynamicDataview: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -102,7 +102,7 @@ begin
   EditAnalyzerDarkGreenNumberPercent.Enabled := ChkUseAnalyzerDarkGreenNumberPercent.Checked;
   LblUseAnalyzerDarkGreenNumberPercent.Enabled := ChkUseAnalyzerDarkGreenNumberPercent.Checked;
 
-  ChkColorByCreature.Enabled := ChkBestHuntingColumns.Checked;
+  ChkOrderByCreature.Enabled := ChkBestHuntingColumns.Checked;
 
   BtnOK.Enabled := (not ChkUseAnalyzerGreenNumberPercent.Checked or (StrToIntDef(EditAnalyzerGreenNumberPercent.Text, -1) >= 0)) and
                    (not ChkUseAnalyzerDarkGreenNumberPercent.Checked  or (StrToIntDef(EditAnalyzerDarkGreenNumberPercent.Text, -1) >= 0)) and
@@ -143,7 +143,7 @@ begin
   ChkLimitInvCubeCharges.Checked := FConfig.LimitInvCubeCharges;
   ChkHideBeerRealm.Checked := FConfig.HideBeerRealm;
   ChkBestHuntingColumns.Checked := FConfig.BestHuntingColumns;
-  ChkColorByCreature.Checked := FConfig.ColorByCreature;
+  ChkOrderByCreature.Checked := FConfig.OrderByCreature;
   ChkDynamicDataview.Checked := FConfig.DynamicDataview;
 
   FUpdateUI();
@@ -176,7 +176,7 @@ begin
   FConfig.LimitInvCubeCharges := ChkLimitInvCubeCharges.Checked;
   FConfig.HideBeerRealm :=  ChkHideBeerRealm.Checked;
   FConfig.BestHuntingColumns :=  ChkBestHuntingColumns.Checked;
-  FConfig.ColorByCreature :=  ChkColorByCreature.Checked;
+  FConfig.OrderByCreature :=  ChkOrderByCreature.Checked;
   FConfig.DynamicDataview := ChkDynamicDataview.Checked;
 
   FConfig.WriteValues(False);

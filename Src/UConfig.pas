@@ -63,7 +63,7 @@ type
     FLimitInvCubeCharges: Boolean;
     FHideBeerRealm: Boolean;
     FBestHuntingColumns: Boolean;
-    FColorByCreature: Boolean;
+    FOrderByCreature: Boolean;
     FDynamicDataview: Boolean;
 
   public
@@ -120,7 +120,7 @@ type
     property LimitInvCubeCharges: Boolean read FLimitInvCubeCharges write FLimitInvCubeCharges;
     property HideBeerRealm: Boolean read FHideBeerRealm write FHideBeerRealm;
     property BestHuntingColumns: Boolean read FBestHuntingColumns write FBestHuntingColumns;
-    property ColorByCreature: Boolean read FColorByCreature write FColorByCreature;
+    property OrderByCreature: Boolean read FOrderByCreature write FOrderByCreature;
     property DynamicDataview: Boolean read FDynamicDataview write FDynamicDataview;
   end;
 
@@ -199,7 +199,7 @@ begin
     FLimitInvCubeCharges := appINI.ReadBool('Customization', 'LimitInvCubeCharges', False);
     FHideBeerRealm := appINI.ReadBool('Customization', 'HideBeerRealm', True);
     FBestHuntingColumns := appINI.ReadBool('Customization', 'BestHuntingColumns', True);
-    FColorByCreature := appINI.ReadBool('Customization', 'ColorByCreature', False);
+    FOrderByCreature := appINI.ReadBool('Customization', 'OrderByCreature', True);
     FDynamicDataview := appINI.ReadBool('Customization', 'DynamicDataview', True);
   finally
     appINI.Free;
@@ -269,7 +269,7 @@ begin
       appIni.WriteBool('Customization', 'LimitInvCubeCharges', FLimitInvCubeCharges);
       appIni.WriteBool('Customization', 'HideBeerRealm', FHideBeerRealm);
       appIni.WriteBool('Customization', 'BestHuntingColumns', FBestHuntingColumns);
-      appIni.WriteBool('Customization', 'ColorByCreature', FColorByCreature);
+      appIni.WriteBool('Customization', 'OrderByCreature', FOrderByCreature);
       appIni.WriteBool('Customization', 'DynamicDataview', FDynamicDataview);
     end;
 

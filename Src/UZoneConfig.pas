@@ -26,10 +26,10 @@ type
     { Private declarations }
     dataIni: TIniFile;
   public
-
     { Public declarations }
     procedure Initialize();
     procedure Cleanup();
+    function GetParentZone(Zone: String): String;
     procedure GetSubZoneObjectsEx(var ZoneData: TObjectList; SubZones: TStringList; ZoneName: String);
     procedure GetSubZoneObjects(var ZoneData: TObjectList; ZoneName: String);
     procedure GetZoneObjects(var ZoneData: TObjectList; IncludeMainZones: Boolean);
@@ -48,6 +48,40 @@ end;
 procedure TZoneConfig.Cleanup();
 begin
   dataIni.Free;
+end;
+
+function TZoneConfig.GetParentZone(Zone: String): String;
+var
+  MainZones, SubZones: TStringList;
+  I, J: Integer;
+begin
+  // This list could be made global for better efficiency, but you don't change zones that often so it'll not make a lot of difference for now.
+  MainZones := TStringList.Create();
+  SubZones := TStringList.Create();
+  try
+    dataIni.ReadSections(MainZones);
+
+    for I := 0 to MainZones.Count - 1 do begin
+      // Check if you're already in a main zone
+      if SameText(Zone, MainZones[I]) then begin
+        Result := MainZones[I];
+        break;
+      end;
+
+      // Get subzones for this zone
+      dataIni.ReadSection(MainZones[I], SubZones);
+      for J := 0 to SubZones.Count - 1 do begin
+        // Did we find it?
+        if SameText(Zone, SubZones[J]) then begin
+          Result := MainZones[I];
+          break;
+        end;
+      end;
+    end;
+  finally
+    MainZones.Free();
+    SubZones.Free();
+  end;
 end;
 
 procedure TZoneConfig.GetSubZoneObjects(var ZoneData: TObjectList; ZoneName: String);

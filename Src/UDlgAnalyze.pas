@@ -436,7 +436,7 @@ begin
   end else if (FConfig.AnalyzeScreenSortColumn <= 2) and (Item1.SubItems.Count >= FConfig.AnalyzeScreenSortColumn) then
     Compare := CompareText(Item1.SubItems[FConfig.AnalyzeScreenSortColumn-1], Item2.SubItems[FConfig.AnalyzeScreenSortColumn-1])
   else if (Item1.SubItems.Count >= FConfig.AnalyzeScreenSortColumn) then begin
-    if not FConfig.BestHuntingColumns or not FConfig.ColorByCreature then begin
+    if not FConfig.BestHuntingColumns or not FConfig.OrderByCreature then begin
       if FConfig.BestHuntingColumns then begin
         pos1 := Pos('(', Item1.SubItems[FConfig.AnalyzeScreenSortColumn-1]);
         val3 := Copy(Item1.SubItems[FConfig.AnalyzeScreenSortColumn-1], pos1+1,
