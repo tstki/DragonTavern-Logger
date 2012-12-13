@@ -1186,7 +1186,7 @@ end;
 
 procedure TFrmDBrowser.FUpdateDataView();
 var
-  ZoneName: String;
+  ZoneName, ParentZone: String;
   idx: Integer;
 begin
   idx := CbxShow.Items.IndexOf(CbxShow.Text);
@@ -1200,9 +1200,10 @@ begin
         ZoneName := FCurrentDataZone;
         if ZoneName = '' then
           ZoneName := LblCurZoneTitle.Caption;
+        ParentZone := FZoneConfig.GetParentZone(ZoneName);
       end else
-        ZoneName := TZoneObj(CbxShow.Items.Objects[CbxShow.Items.IndexOf(CbxShow.Text)]).Name;
-      FShowDynamicZoneInfoByName(ZoneName, LvDataView);
+        ParentZone := TZoneObj(CbxShow.Items.Objects[CbxShow.Items.IndexOf(CbxShow.Text)]).Name;
+      FShowDynamicZoneInfoByName(ParentZone, LvDataView);
     end else begin
       ZoneName := TZoneObj(CbxShow.Items.Objects[CbxShow.Items.IndexOf(CbxShow.Text)]).Name;
       FShowZoneInfoByName(ZoneName, '', LvDataView);
