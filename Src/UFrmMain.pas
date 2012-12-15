@@ -595,9 +595,11 @@ begin
                 p1 := Pos(PChar(cSoulAdded), iall.outerHTML);
                 if p1 <> 0 then begin
                   p2 := Pos(PChar(cSoulBursting), iall.outerHTML);
-                  if p2 <> 0 then
-                    LblSoulWarning.Visible := True
-                  else
+                  if p2 <> 0 then begin
+                    LblSoulWarning.Visible := True;
+                    // Blur focus so we don't accidently keep pressing 'E'
+                    LvActiveZoneData.SetFocus;
+                  end else
                     LblSoulWarning.Visible := False;
                 end;
               end
