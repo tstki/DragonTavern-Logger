@@ -185,6 +185,20 @@ object FrmDBrowser: TFrmDBrowser
       Height = 13
       Caption = '...'
     end
+    object LblSoulWarning: TLabel
+      Left = 225
+      Top = 196
+      Width = 29
+      Height = 13
+      Caption = 'Souls!'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      Visible = False
+    end
     object CbxShow: TComboBox
       Left = 42
       Top = 473

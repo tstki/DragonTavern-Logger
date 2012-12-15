@@ -128,6 +128,7 @@ type
     Exportdata1: TMenuItem;
     BtnIncreaseDifficulty: TButton;
     BtnDecreaseDifficulty: TButton;
+    LblSoulWarning: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure WebBrowser1StatusTextChange(ASender: TObject; const Text: WideString);
@@ -588,6 +589,18 @@ begin
                 creatureType := Copy(creatureType, 1, p1-1);
 
               FDataConfig.AddValue(zoneName, creatureType);
+
+              // See if the user is immortal, and just harvested a soul
+              if FConfig.DetectSoulStatus then begin
+                p1 := Pos(PChar(cSoulAdded), iall.outerHTML);
+                if p1 <> 0 then begin
+                  p2 := Pos(PChar(cSoulBursting), iall.outerHTML);
+                  if p2 <> 0 then
+                    LblSoulWarning.Visible := True
+                  else
+                    LblSoulWarning.Visible := False;
+                end;
+              end
             end;
           end;
         end;

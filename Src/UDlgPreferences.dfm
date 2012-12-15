@@ -119,7 +119,6 @@ object DlgPreferences: TDlgPreferences
     ModalResult = 1
     TabOrder = 4
     OnClick = BtnOKClick
-    ExplicitTop = 390
   end
   object BtnCancel: TButton
     Left = 89
@@ -131,7 +130,6 @@ object DlgPreferences: TDlgPreferences
     Caption = 'Cancel'
     ModalResult = 2
     TabOrder = 5
-    ExplicitTop = 390
   end
   object GroupBox2: TGroupBox
     Left = 8
@@ -202,6 +200,15 @@ object DlgPreferences: TDlgPreferences
       Height = 17
       Caption = 'Dynamic data view - best hunting columns'
       TabOrder = 6
+    end
+    object ChkDetectSoulStatus: TCheckBox
+      Left = 15
+      Top = 162
+      Width = 178
+      Height = 17
+      Hint = 'Ensures the zone view is never cleared automatically.'
+      Caption = 'Warn on bursting stolen souls'
+      TabOrder = 7
     end
   end
   object GroupBox3: TGroupBox

@@ -37,6 +37,7 @@ There's a detail box for your current zone info, and it will update (+1), and sh
 * Added "Active zone" to dynamic data view, which will show the dynamic data for the current parent zone and it's sub locations.
 * Last visited zone (for use with "Active zone") is now remembered between sessions.
 * Last used dataview combobox row is now remembered between sessions.
+* Added option to "warn on bursting souls", you will get a red "Souls!" text under the FAQ button warning you your stolen souls are about to burst free.
 
 Data analysis dialog (F9):
 * Added option to show the best 2 creatures to hunt for each location instead of all creatures. This option is enabled by default.

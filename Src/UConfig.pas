@@ -67,6 +67,7 @@ type
     FDynamicDataview: Boolean;
     FDataViewItemIndex: Integer;
     FLastDataZone: String;
+    FDetectSoulStatus: Boolean;
 
   public
     { Public declarations }
@@ -126,6 +127,7 @@ type
     property DynamicDataview: Boolean read FDynamicDataview write FDynamicDataview;
     property DataViewItemIndex: Integer read FDataViewItemIndex write FDataViewItemIndex;
     property LastDataZone: String read FLastDataZone write FLastDataZone;
+    property DetectSoulStatus: Boolean read FDetectSoulStatus write FDetectSoulStatus;
   end;
 
 implementation
@@ -207,6 +209,7 @@ begin
     FDynamicDataview := appINI.ReadBool('Customization', 'DynamicDataview', True);
     FDataViewItemIndex := appINI.ReadInteger('Customization', 'DataViewItemIndex', 0);
     FLastDataZone := appINI.ReadString('Customization', 'LastDataZone', '');
+    FDetectSoulStatus := appINI.ReadBool('Customization', 'DetectSoulStatus', False);
   finally
     appINI.Free;
   end;
@@ -279,6 +282,7 @@ begin
       appIni.WriteBool('Customization', 'DynamicDataview', FDynamicDataview);
       appIni.WriteInteger('Customization', 'DataViewItemIndex', FDataViewItemIndex);
       appIni.WriteString('Customization', 'LastDataZone', FLastDataZone);
+      appIni.WriteBool('Customization', 'DetectSoulStatus', FDetectSoulStatus);
     end;
 
   finally

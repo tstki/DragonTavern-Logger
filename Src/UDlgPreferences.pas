@@ -50,6 +50,7 @@ type
     ChkBestHuntingColumns: TCheckBox;
     ChkOrderByCreature: TCheckBox;
     ChkDynamicDataview: TCheckBox;
+    ChkDetectSoulStatus: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure BtnMergeClick(Sender: TObject);
@@ -145,6 +146,7 @@ begin
   ChkBestHuntingColumns.Checked := FConfig.BestHuntingColumns;
   ChkOrderByCreature.Checked := FConfig.OrderByCreature;
   ChkDynamicDataview.Checked := FConfig.DynamicDataview;
+  ChkDetectSoulStatus.Checked := FConfig.DetectSoulStatus;
 
   FUpdateUI();
 end;
@@ -178,6 +180,7 @@ begin
   FConfig.BestHuntingColumns :=  ChkBestHuntingColumns.Checked;
   FConfig.OrderByCreature :=  ChkOrderByCreature.Checked;
   FConfig.DynamicDataview := ChkDynamicDataview.Checked;
+  FConfig.DetectSoulStatus := ChkDetectSoulStatus.Checked;
 
   FConfig.WriteValues(False);
 end;
