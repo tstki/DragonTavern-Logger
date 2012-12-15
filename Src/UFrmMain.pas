@@ -342,6 +342,7 @@ begin
   // Init locals
   FCharName := '';
   FWantInventoryList := False;
+  FCurrentDataZone := FConfig.LastDataZone;
 
   FUpdateUI();
 
@@ -391,6 +392,8 @@ procedure TFrmDBrowser.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   FFSaveScreen();
 
+  FConfig.LastDataZone := FCurrentDataZone;
+
   FConfig.WriteValues(False);
   FConfig.Free();
   FDataConfig.Cleanup();
@@ -425,7 +428,7 @@ begin
     end;
   end;
 
-  CbxShow.ItemIndex := 0;
+  CbxShow.ItemIndex := FConfig.DataViewItemIndex;
 end;
 
 function TFrmDBrowser.FGetRootHtmlElement(): IHTMLElement;
@@ -754,6 +757,7 @@ begin
   end;
 
   FUpdateUI();
+  FFillZonePulldown();
   FUpdateDataView();
 end;
 
@@ -1154,6 +1158,7 @@ end;
 procedure TFrmDBrowser.CbxShowChange(Sender: TObject);
 begin
   FUpdateDataView();
+  FConfig.DataViewItemIndex := CbxShow.ItemIndex;
 end;
 
 procedure TFrmDBrowser.FUpdateCurrentDataView(ZoneName, creatureType: String);
@@ -1190,6 +1195,11 @@ var
   idx: Integer;
 begin
   idx := CbxShow.Items.IndexOf(CbxShow.Text);
+  // Ensure we don't crash later.
+  if idx < 0 then begin
+    CbxShow.ItemIndex := 0;
+    idx := 0;
+  end;
 
   if idx = 0 then
     LvDataView.Clear

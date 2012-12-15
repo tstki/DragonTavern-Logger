@@ -35,6 +35,8 @@ There's a detail box for your current zone info, and it will update (+1), and sh
 * The bar is now filled with random patrons.
 * Added "Dynamic Data view" option. Which adds the ability to view the best two hunting columns for each subzone in the selected or recent zone. This option is enabled by default, you can disable it in the options.
 * Added "Active zone" to dynamic data view, which will show the dynamic data for the current parent zone and it's sub locations.
+* Last visited zone (for use with "Active zone") is now remembered between sessions.
+* Last used dataview combobox row is now remembered between sessions.
 
 Data analysis dialog (F9):
 * Added option to show the best 2 creatures to hunt for each location instead of all creatures. This option is enabled by default.

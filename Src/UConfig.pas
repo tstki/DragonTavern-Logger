@@ -65,6 +65,8 @@ type
     FBestHuntingColumns: Boolean;
     FOrderByCreature: Boolean;
     FDynamicDataview: Boolean;
+    FDataViewItemIndex: Integer;
+    FLastDataZone: String;
 
   public
     { Public declarations }
@@ -122,6 +124,8 @@ type
     property BestHuntingColumns: Boolean read FBestHuntingColumns write FBestHuntingColumns;
     property OrderByCreature: Boolean read FOrderByCreature write FOrderByCreature;
     property DynamicDataview: Boolean read FDynamicDataview write FDynamicDataview;
+    property DataViewItemIndex: Integer read FDataViewItemIndex write FDataViewItemIndex;
+    property LastDataZone: String read FLastDataZone write FLastDataZone;
   end;
 
 implementation
@@ -201,6 +205,8 @@ begin
     FBestHuntingColumns := appINI.ReadBool('Customization', 'BestHuntingColumns', True);
     FOrderByCreature := appINI.ReadBool('Customization', 'OrderByCreature', True);
     FDynamicDataview := appINI.ReadBool('Customization', 'DynamicDataview', True);
+    FDataViewItemIndex := appINI.ReadInteger('Customization', 'DataViewItemIndex', 0);
+    FLastDataZone := appINI.ReadString('Customization', 'LastDataZone', '');
   finally
     appINI.Free;
   end;
@@ -271,6 +277,8 @@ begin
       appIni.WriteBool('Customization', 'BestHuntingColumns', FBestHuntingColumns);
       appIni.WriteBool('Customization', 'OrderByCreature', FOrderByCreature);
       appIni.WriteBool('Customization', 'DynamicDataview', FDynamicDataview);
+      appIni.WriteInteger('Customization', 'DataViewItemIndex', FDataViewItemIndex);
+      appIni.WriteString('Customization', 'LastDataZone', FLastDataZone);
     end;
 
   finally
