@@ -825,13 +825,6 @@ begin
   WebBrowser1.Refresh;
 end;
 
-procedure TFrmDBrowser.ActPhantomFormExecute(Sender: TObject);
-begin
-  if FConfig.ForcedCharacterID <> '' then
-    WebBrowser1.Navigate('javascript:soulstealer_phantomform( ''' + FConfig.ForcedCharacterID + ''' );');
-  FFocusBrowserFrame();
-end;
-
 procedure TFrmDBrowser.ActBoostLuckExecute(Sender: TObject);
 begin
   if FConfig.ForcedCharacterID <> '' then
@@ -846,11 +839,20 @@ begin
   FFocusBrowserFrame();
 end;
 
+procedure TFrmDBrowser.ActPhantomFormExecute(Sender: TObject);
+begin
+  if FConfig.ForcedCharacterID <> '' then
+    WebBrowser1.Navigate('javascript:soulstealer_phantomform( ''' + FConfig.ForcedCharacterID + ''' );');
+  FFocusBrowserFrame();
+  LblSoulWarning.Visible := False;
+end;
+
 procedure TFrmDBrowser.ActStealKnowledgeExecute(Sender: TObject);
 begin
   if FConfig.ForcedCharacterID <> '' then
     WebBrowser1.Navigate('javascript:soulstealer_stealknowledge( ''' + FConfig.ForcedCharacterID + ''' );');
   FFocusBrowserFrame();
+  LblSoulWarning.Visible := False;
 end;
 
 procedure TFrmDBrowser.ActHealWoundExecute(Sender: TObject);
