@@ -129,6 +129,18 @@ type
     BtnIncreaseDifficulty: TButton;
     BtnDecreaseDifficulty: TButton;
     LblSoulWarning: TLabel;
+    ActHealWound: TAction;
+    ActStealKnowledge: TAction;
+    ActPhantomForm: TAction;
+    Immortal1: TMenuItem;
+    Heal1: TMenuItem;
+    Stealknowledge1: TMenuItem;
+    PhantomForm1: TMenuItem;
+    ActTauntReaper: TAction;
+    ActBoostLuck: TAction;
+    auntReaper1: TMenuItem;
+    BoostLuck1: TMenuItem;
+    ActFlamingWeapon: TAction;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure WebBrowser1StatusTextChange(ASender: TObject; const Text: WideString);
@@ -179,6 +191,12 @@ type
     procedure LvDataViewAdvancedCustomDrawItem(Sender: TCustomListView; Item: TListItem; State: TCustomDrawState; Stage: TCustomDrawStage; var DefaultDraw: Boolean);
     procedure ActAnalyzeExecute(Sender: TObject);
     procedure ActExportDataExecute(Sender: TObject);
+    procedure ActBoostLuckExecute(Sender: TObject);
+    procedure ActTauntReaperExecute(Sender: TObject);
+    procedure ActHealWoundExecute(Sender: TObject);
+    procedure ActStealKnowledgeExecute(Sender: TObject);
+    procedure ActPhantomFormExecute(Sender: TObject);
+    procedure ActFlamingWeaponExecute(Sender: TObject);
   private
     FConfig: TConfig;
     FDataConfig: TDataConfig;
@@ -358,6 +376,8 @@ begin
 
   FZoneNames := TObjectList.Create;
   FZoneConfig.GetZoneObjects(FZoneNames, True);
+
+  WebBrowser1.Silent := True;
 
   LvDataView.Clear;
   FFillZonePulldown();
@@ -803,6 +823,48 @@ end;
 procedure TFrmDBrowser.ActRefreshExecute(Sender: TObject);
 begin
   WebBrowser1.Refresh;
+end;
+
+procedure TFrmDBrowser.ActPhantomFormExecute(Sender: TObject);
+begin
+  if FConfig.ForcedCharacterID <> '' then
+    WebBrowser1.Navigate('javascript:soulstealer_phantomform( ''' + FConfig.ForcedCharacterID + ''' );');
+  FFocusBrowserFrame();
+end;
+
+procedure TFrmDBrowser.ActBoostLuckExecute(Sender: TObject);
+begin
+  if FConfig.ForcedCharacterID <> '' then
+    WebBrowser1.Navigate('javascript:legendaryLuck_boostLuck( ''' + FConfig.ForcedCharacterID + ''' );');
+  FFocusBrowserFrame();
+end;
+
+procedure TFrmDBrowser.ActTauntReaperExecute(Sender: TObject);
+begin
+  if FConfig.ForcedCharacterID <> '' then
+    WebBrowser1.Navigate('javascript:reaper_taunt( ''' + FConfig.ForcedCharacterID + ''' );');
+  FFocusBrowserFrame();
+end;
+
+procedure TFrmDBrowser.ActStealKnowledgeExecute(Sender: TObject);
+begin
+  if FConfig.ForcedCharacterID <> '' then
+    WebBrowser1.Navigate('javascript:soulstealer_stealknowledge( ''' + FConfig.ForcedCharacterID + ''' );');
+  FFocusBrowserFrame();
+end;
+
+procedure TFrmDBrowser.ActHealWoundExecute(Sender: TObject);
+begin
+  if FConfig.ForcedCharacterID <> '' then
+    WebBrowser1.Navigate('javascript:soulstealer_heal( ''' + FConfig.ForcedCharacterID + ''' );');
+  FFocusBrowserFrame();
+end;
+
+procedure TFrmDBrowser.ActFlamingWeaponExecute(Sender: TObject);
+begin
+  if FConfig.ForcedCharacterID <> '' then
+    WebBrowser1.Navigate('javascript:flameon( ''' + FConfig.ForcedCharacterID + ''' );');
+  FFocusBrowserFrame();
 end;
 
 procedure TFrmDBrowser.ActStopExecute(Sender: TObject);
@@ -1409,6 +1471,10 @@ begin
       LvDataView.Columns.Items[2].Caption := 'Local'
     else
       LvDataView.Columns.Items[2].Caption := 'Total';
+  end;
+
+  if FConfig.ImmortalSoulStealer then begin
+  //
   end;
 
   PnlBrowserBar.Height := IfThen(FConfig.ShowBrowserNavBar, 34, 0);

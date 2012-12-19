@@ -4,53 +4,61 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, UConfig, UDataConfig;
+  Dialogs, StdCtrls, UConfig, UDataConfig, ComCtrls;
 
 type
   TDlgPreferences = class(TForm)
-    GroupBox1: TGroupBox;
-    Label1: TLabel;
     BtnOK: TButton;
     BtnCancel: TButton;
-    GroupBox2: TGroupBox;
-    ChkShowBrowserNavBar: TCheckBox;
-    ChkIncludeHostData: TCheckBox;
-    BtnMerge: TButton;
-    ChkShowMenuBar: TCheckBox;
-    ChkShowDataBoxes: TCheckBox;
-    Label3: TLabel;
-    CbxButtonStyle: TComboBox;
-    ChkHostLocalDataColumns: TCheckBox;
-    GroupBox3: TGroupBox;
-    ChkUseAnalyzerGreenNumberPercent: TCheckBox;
-    Label2: TLabel;
-    EditMinimumKills: TEdit;
-    LblUseAnalyzerGreenNumberPercent: TLabel;
-    EditAnalyzerGreenNumberPercent: TEdit;
-    Label5: TLabel;
-    ChkUseAnalyzerDarkGreenNumberPercent: TCheckBox;
-    EditAnalyzerDarkGreenNumberPercent: TEdit;
-    LblUseAnalyzerDarkGreenNumberPercent: TLabel;
-    ChkColorBelowMinimumKills: TCheckBox;
-    ChkLazyZoneview: TCheckBox;
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
+    TabSheet3: TTabSheet;
+    TabSheet4: TTabSheet;
     GroupBox4: TGroupBox;
     Label6: TLabel;
-    EditUsername: TEdit;
     Label7: TLabel;
-    EditPassword: TEdit;
     Label4: TLabel;
-    RadioExportPercentages: TRadioButton;
-    RadioExportValues: TRadioButton;
-    Label8: TLabel;
-    ChkLogEventCreatures: TCheckBox;
-    Label9: TLabel;
+    EditUsername: TEdit;
+    EditPassword: TEdit;
     GroupBox5: TGroupBox;
     ChkLimitInvCubeCharges: TCheckBox;
-    ChkHideBeerRealm: TCheckBox;
-    ChkBestHuntingColumns: TCheckBox;
-    ChkOrderByCreature: TCheckBox;
+    ChkShowMenuBar: TCheckBox;
+    ChkShowDataBoxes: TCheckBox;
+    ChkShowBrowserNavBar: TCheckBox;
+    ChkHostLocalDataColumns: TCheckBox;
+    Label3: TLabel;
+    CbxButtonStyle: TComboBox;
+    ChkLazyZoneview: TCheckBox;
     ChkDynamicDataview: TCheckBox;
     ChkDetectSoulStatus: TCheckBox;
+    ChkUseAnalyzerGreenNumberPercent: TCheckBox;
+    Label2: TLabel;
+    ChkUseAnalyzerDarkGreenNumberPercent: TCheckBox;
+    ChkHideBeerRealm: TCheckBox;
+    ChkColorBelowMinimumKills: TCheckBox;
+    ChkBestHuntingColumns: TCheckBox;
+    ChkOrderByCreature: TCheckBox;
+    EditMinimumKills: TEdit;
+    EditAnalyzerDarkGreenNumberPercent: TEdit;
+    EditAnalyzerGreenNumberPercent: TEdit;
+    LblUseAnalyzerGreenNumberPercent: TLabel;
+    LblUseAnalyzerDarkGreenNumberPercent: TLabel;
+    Label5: TLabel;
+    Label1: TLabel;
+    BtnMerge: TButton;
+    RadioExportPercentages: TRadioButton;
+    RadioExportValues: TRadioButton;
+    ChkIncludeHostData: TCheckBox;
+    Label8: TLabel;
+    Label9: TLabel;
+    ChkLogEventCreatures: TCheckBox;
+    TabSheet5: TTabSheet;
+    ChkImmortalSoulStealer: TCheckBox;
+    Label10: TLabel;
+    Label11: TLabel;
+    Label12: TLabel;
+    EditForcedCharacterID: TEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure BtnMergeClick(Sender: TObject);
@@ -82,6 +90,8 @@ begin
   ChkShowDataBoxes.Enabled := False;
   Label3.Enabled := False;
   CbxButtonStyle.Enabled := False;
+
+  PageControl1.ActivePage := TabSheet1;
 
   FUpdateUI();
 end;
@@ -147,6 +157,8 @@ begin
   ChkOrderByCreature.Checked := FConfig.OrderByCreature;
   ChkDynamicDataview.Checked := FConfig.DynamicDataview;
   ChkDetectSoulStatus.Checked := FConfig.DetectSoulStatus;
+  ChkImmortalSoulStealer.Checked := FConfig.ImmortalSoulStealer;
+  EditForcedCharacterID.Text := FConfig.ForcedCharacterID;
 
   FUpdateUI();
 end;
@@ -181,6 +193,8 @@ begin
   FConfig.OrderByCreature :=  ChkOrderByCreature.Checked;
   FConfig.DynamicDataview := ChkDynamicDataview.Checked;
   FConfig.DetectSoulStatus := ChkDetectSoulStatus.Checked;
+  FConfig.ImmortalSoulStealer := ChkImmortalSoulStealer.Checked;
+  FConfig.ForcedCharacterID := EditForcedCharacterID.Text;
 
   FConfig.WriteValues(False);
 end;

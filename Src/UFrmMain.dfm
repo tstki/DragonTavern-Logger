@@ -1867,6 +1867,18 @@ object FrmDBrowser: TFrmDBrowser
     Images = ImlFrmMain
     Left = 152
     Top = 64
+    object ActPhantomForm: TAction
+      Category = 'Immortal'
+      Caption = 'Phantom Form'
+      Hint = 'Phantom Form (Lasts for 10 AP, costs 3 souls)'
+      OnExecute = ActPhantomFormExecute
+    end
+    object ActStealKnowledge: TAction
+      Category = 'Immortal'
+      Caption = 'Steal knowledge'
+      Hint = 'Steal Knowledge (gain level*100xp - costs 5 souls)'
+      OnExecute = ActStealKnowledgeExecute
+    end
     object ActPrev: TAction
       Category = 'Browser'
       Hint = 'Previous'
@@ -2118,6 +2130,30 @@ object FrmDBrowser: TFrmDBrowser
       ImageIndex = 35
       OnExecute = ActExportDataExecute
     end
+    object ActHealWound: TAction
+      Category = 'Immortal'
+      Caption = 'Heal'
+      Hint = 'Heal 1 wound (costs 1 soul)'
+      OnExecute = ActHealWoundExecute
+    end
+    object ActTauntReaper: TAction
+      Category = 'Immortal'
+      Caption = 'Taunt Reaper'
+      Hint = 'Taunt the Reaper! Double or nothing Reaper XP'
+      OnExecute = ActTauntReaperExecute
+    end
+    object ActBoostLuck: TAction
+      Category = 'Immortal'
+      Caption = 'Boost Luck'
+      Hint = 'Boost Luck! (1 AP)'
+      OnExecute = ActBoostLuckExecute
+    end
+    object ActFlamingWeapon: TAction
+      Category = 'Immortal'
+      Caption = 'Flaming Weapon'
+      Hint = 'Activate, 1AP'
+      OnExecute = ActFlamingWeaponExecute
+    end
   end
   object MainMenu1: TMainMenu
     Images = ImlFrmMain
@@ -2208,6 +2244,24 @@ object FrmDBrowser: TFrmDBrowser
       end
       object itles1: TMenuItem
         Action = ActTitles
+      end
+    end
+    object Immortal1: TMenuItem
+      Caption = 'Immortal'
+      object Heal1: TMenuItem
+        Action = ActHealWound
+      end
+      object Stealknowledge1: TMenuItem
+        Action = ActStealKnowledge
+      end
+      object PhantomForm1: TMenuItem
+        Action = ActPhantomForm
+      end
+      object auntReaper1: TMenuItem
+        Action = ActTauntReaper
+      end
+      object BoostLuck1: TMenuItem
+        Action = ActBoostLuck
       end
     end
     object ravel1: TMenuItem

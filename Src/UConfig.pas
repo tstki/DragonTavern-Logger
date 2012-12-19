@@ -68,6 +68,8 @@ type
     FDataViewItemIndex: Integer;
     FLastDataZone: String;
     FDetectSoulStatus: Boolean;
+    FImmortalSoulStealer: Boolean;
+    FForcedCharacterID: String;
 
   public
     { Public declarations }
@@ -128,6 +130,8 @@ type
     property DataViewItemIndex: Integer read FDataViewItemIndex write FDataViewItemIndex;
     property LastDataZone: String read FLastDataZone write FLastDataZone;
     property DetectSoulStatus: Boolean read FDetectSoulStatus write FDetectSoulStatus;
+    property ImmortalSoulStealer: Boolean read FImmortalSoulStealer write FImmortalSoulStealer;
+    property ForcedCharacterID: String read FForcedCharacterID write FForcedCharacterID;
   end;
 
 implementation
@@ -210,6 +214,8 @@ begin
     FDataViewItemIndex := appINI.ReadInteger('Customization', 'DataViewItemIndex', 0);
     FLastDataZone := appINI.ReadString('Customization', 'LastDataZone', '');
     FDetectSoulStatus := appINI.ReadBool('Customization', 'DetectSoulStatus', False);
+    FImmortalSoulStealer := appINI.ReadBool('Customization', 'ImmortalSoulStealer', False);
+    FForcedCharacterID := appINI.ReadString('Customization', 'ForcedCharacterID', '');
   finally
     appINI.Free;
   end;
@@ -283,6 +289,8 @@ begin
       appIni.WriteInteger('Customization', 'DataViewItemIndex', FDataViewItemIndex);
       appIni.WriteString('Customization', 'LastDataZone', FLastDataZone);
       appIni.WriteBool('Customization', 'DetectSoulStatus', FDetectSoulStatus);
+      appIni.WriteBool('Customization', 'ImmortalSoulStealer', FImmortalSoulStealer);
+      appIni.WriteString('Customization', 'ForcedCharacterID', FForcedCharacterID);
     end;
 
   finally

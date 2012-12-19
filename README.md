@@ -38,6 +38,9 @@ There's a detail box for your current zone info, and it will update (+1), and sh
 * Last visited zone (for use with "Active zone") is now remembered between sessions.
 * Last used dataview combobox row is now remembered between sessions.
 * Added option to "warn on bursting souls", you will get a red "Souls!" text under the FAQ button warning you your stolen souls are about to burst free.
+* The webbrowser is now "silent". Meaning, the occassional javascript error you might get upon launch will no longer occur.
+* Options dialog redesigned. It now uses a tabbed interface.
+* Added ability to call 'Soul Stealer', 'Flaming Weapon', 'Legendary Luck' and 'Reaper' immortal powers from the menu for a single character.
 
 Data analysis dialog (F9):
 * Added option to show the best 2 creatures to hunt for each location instead of all creatures. This option is enabled by default.
