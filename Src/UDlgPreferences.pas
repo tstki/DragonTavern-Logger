@@ -59,6 +59,9 @@ type
     Label11: TLabel;
     Label12: TLabel;
     EditForcedCharacterID: TEdit;
+    Label13: TLabel;
+    EditCubeDelay: TEdit;
+    Label14: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure BtnMergeClick(Sender: TObject);
@@ -117,7 +120,8 @@ begin
 
   BtnOK.Enabled := (not ChkUseAnalyzerGreenNumberPercent.Checked or (StrToIntDef(EditAnalyzerGreenNumberPercent.Text, -1) >= 0)) and
                    (not ChkUseAnalyzerDarkGreenNumberPercent.Checked  or (StrToIntDef(EditAnalyzerDarkGreenNumberPercent.Text, -1) >= 0)) and
-                   (StrToIntDef(EditMinimumKills.Text, -1) >= 0);
+                   (StrToIntDef(EditMinimumKills.Text, -1) >= 0) and
+                   (StrToIntDef(EditCubeDelay.Text, -1) >= 200) and (StrToIntDef(EditCubeDelay.Text, -1) <= 5000);
 end;
 
 procedure TDlgPreferences.SetConfig(Config: TConfig);
@@ -159,6 +163,7 @@ begin
   ChkDetectSoulStatus.Checked := FConfig.DetectSoulStatus;
   ChkImmortalSoulStealer.Checked := FConfig.ImmortalSoulStealer;
   EditForcedCharacterID.Text := FConfig.ForcedCharacterID;
+  EditCubeDelay.Text := IntToStr(FConfig.CubeDelay);
 
   FUpdateUI();
 end;
@@ -195,6 +200,7 @@ begin
   FConfig.DetectSoulStatus := ChkDetectSoulStatus.Checked;
   FConfig.ImmortalSoulStealer := ChkImmortalSoulStealer.Checked;
   FConfig.ForcedCharacterID := EditForcedCharacterID.Text;
+  FConfig.CubeDelay := StrToInt(EditCubeDelay.Text);
 
   FConfig.WriteValues(False);
 end;

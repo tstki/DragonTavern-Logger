@@ -70,6 +70,7 @@ type
     FDetectSoulStatus: Boolean;
     FImmortalSoulStealer: Boolean;
     FForcedCharacterID: String;
+    FCubeDelay: Integer;
 
   public
     { Public declarations }
@@ -132,6 +133,7 @@ type
     property DetectSoulStatus: Boolean read FDetectSoulStatus write FDetectSoulStatus;
     property ImmortalSoulStealer: Boolean read FImmortalSoulStealer write FImmortalSoulStealer;
     property ForcedCharacterID: String read FForcedCharacterID write FForcedCharacterID;
+    property CubeDelay: Integer read FCubeDelay write FCubeDelay;
   end;
 
 implementation
@@ -216,6 +218,7 @@ begin
     FDetectSoulStatus := appINI.ReadBool('Customization', 'DetectSoulStatus', False);
     FImmortalSoulStealer := appINI.ReadBool('Customization', 'ImmortalSoulStealer', False);
     FForcedCharacterID := appINI.ReadString('Customization', 'ForcedCharacterID', '');
+    FCubeDelay := appINI.ReadInteger('Customization', 'CubeDelay', 450);
   finally
     appINI.Free;
   end;
@@ -291,6 +294,7 @@ begin
       appIni.WriteBool('Customization', 'DetectSoulStatus', FDetectSoulStatus);
       appIni.WriteBool('Customization', 'ImmortalSoulStealer', FImmortalSoulStealer);
       appIni.WriteString('Customization', 'ForcedCharacterID', FForcedCharacterID);
+      appIni.WriteInteger('Customization', 'CubeDelay', FCubeDelay);
     end;
 
   finally

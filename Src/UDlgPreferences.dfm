@@ -173,7 +173,7 @@ object DlgPreferences: TDlgPreferences
         Width = 194
         Height = 17
         Caption = 'Green background above:'
-        TabOrder = 1
+        TabOrder = 2
         OnClick = ItemChange
       end
       object ChkHideBeerRealm: TCheckBox
@@ -185,7 +185,7 @@ object DlgPreferences: TDlgPreferences
           'The beer dragon realms were a special event only available durin' +
           'g the year of the dragon celebration'
         Caption = 'Hide beer dragon realms'
-        TabOrder = 2
+        TabOrder = 6
       end
       object ChkColorBelowMinimumKills: TCheckBox
         Left = 15
@@ -193,7 +193,7 @@ object DlgPreferences: TDlgPreferences
         Width = 194
         Height = 17
         Caption = 'Red background below minimum kills'
-        TabOrder = 3
+        TabOrder = 5
         OnClick = ItemChange
       end
       object ChkBestHuntingColumns: TCheckBox
@@ -202,23 +202,23 @@ object DlgPreferences: TDlgPreferences
         Width = 186
         Height = 17
         Caption = 'Show only best hunting columns'
-        TabOrder = 4
+        TabOrder = 7
         OnClick = ChkBestHuntingColumnsClick
       end
       object ChkOrderByCreature: TCheckBox
         Left = 23
-        Top = 167
+        Top = 173
         Width = 178
         Height = 17
         Caption = 'Order by creature type'
-        TabOrder = 5
+        TabOrder = 8
       end
       object EditMinimumKills: TEdit
         Left = 215
         Top = 77
         Width = 56
         Height = 21
-        TabOrder = 6
+        TabOrder = 4
         OnChange = ItemChange
       end
       object EditAnalyzerDarkGreenNumberPercent: TEdit
@@ -226,7 +226,7 @@ object DlgPreferences: TDlgPreferences
         Top = 50
         Width = 56
         Height = 21
-        TabOrder = 7
+        TabOrder = 3
         OnChange = ItemChange
       end
       object EditAnalyzerGreenNumberPercent: TEdit
@@ -234,7 +234,7 @@ object DlgPreferences: TDlgPreferences
         Top = 23
         Width = 56
         Height = 21
-        TabOrder = 8
+        TabOrder = 1
         OnChange = ItemChange
       end
     end
@@ -283,7 +283,7 @@ object DlgPreferences: TDlgPreferences
         Height = 25
         Anchors = [akTop, akRight]
         Caption = 'Merge local to Host'
-        TabOrder = 0
+        TabOrder = 1
         OnClick = BtnMergeClick
       end
       object RadioExportPercentages: TRadioButton
@@ -292,7 +292,7 @@ object DlgPreferences: TDlgPreferences
         Width = 95
         Height = 17
         Caption = 'Percentages'
-        TabOrder = 1
+        TabOrder = 3
       end
       object RadioExportValues: TRadioButton
         Left = 82
@@ -308,7 +308,7 @@ object DlgPreferences: TDlgPreferences
         Width = 154
         Height = 17
         Caption = 'Include host data in totals'
-        TabOrder = 3
+        TabOrder = 0
       end
       object ChkLogEventCreatures: TCheckBox
         Left = 15
@@ -388,7 +388,7 @@ object DlgPreferences: TDlgPreferences
         end
         object Label7: TLabel
           Left = 15
-          Top = 107
+          Top = 106
           Width = 46
           Height = 13
           Caption = 'Password'
@@ -406,7 +406,7 @@ object DlgPreferences: TDlgPreferences
           WordWrap = True
         end
         object EditUsername: TEdit
-          Left = 153
+          Left = 148
           Top = 77
           Width = 145
           Height = 21
@@ -414,8 +414,8 @@ object DlgPreferences: TDlgPreferences
           OnChange = ItemChange
         end
         object EditPassword: TEdit
-          Left = 152
-          Top = 104
+          Left = 148
+          Top = 103
           Width = 145
           Height = 21
           PasswordChar = '*'
@@ -427,9 +427,23 @@ object DlgPreferences: TDlgPreferences
         Left = 3
         Top = 147
         Width = 314
-        Height = 57
+        Height = 86
         Caption = 'Inventory Dialog'
         TabOrder = 1
+        object Label13: TLabel
+          Left = 15
+          Top = 51
+          Width = 116
+          Height = 13
+          Caption = 'Cube refresh delay (ms)'
+        end
+        object Label14: TLabel
+          Left = 223
+          Top = 51
+          Width = 46
+          Height = 13
+          Caption = '200-5000'
+        end
         object ChkLimitInvCubeCharges: TCheckBox
           Left = 15
           Top = 25
@@ -440,6 +454,14 @@ object DlgPreferences: TDlgPreferences
             'arges wil be selected initially'
           Caption = 'Limit auto-select to max cube charges'
           TabOrder = 0
+        end
+        object EditCubeDelay: TEdit
+          Left = 148
+          Top = 48
+          Width = 69
+          Height = 21
+          TabOrder = 1
+          OnChange = ItemChange
         end
       end
     end

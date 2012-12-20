@@ -943,7 +943,7 @@ begin
               if CubeProgress <> nil then
                 CubeProgress.SetCurValue(I+1);
               Application.ProcessMessages;
-              Sleep(500); //Make this a preference
+              Sleep(FConfig.CubeDelay);
             end;
           end;
         finally

@@ -41,6 +41,7 @@ There's a detail box for your current zone info, and it will update (+1), and sh
 * The webbrowser is now "silent". Meaning, the occassional javascript error you might get upon launch will no longer occur.
 * Options dialog redesigned. It now uses a tabbed interface.
 * Added ability to call 'Soul Stealer', 'Flaming Weapon', 'Legendary Luck' and 'Reaper' immortal powers from the menu for a single character.
+* Made cube delay a preference between 200-5000ms - experiment at your own risk.
 
 Data analysis dialog (F9):
 * Added option to show the best 2 creatures to hunt for each location instead of all creatures. This option is enabled by default.
