@@ -33,14 +33,16 @@ There's a detail box for your current zone info, and it will update (+1), and sh
 * Main interface slightly narrowed, to allow more room for the second data view panel.
 * Fixed a number of missing popup button descriptions.
 * The bar is now filled with random patrons.
-* Added "Dynamic Data view" option. Which adds the ability to view the best two hunting columns for each subzone in the selected or recent zone. This option is enabled by default, you can disable it in the options.
 * Added "Active zone" to dynamic data view, which will show the dynamic data for the current parent zone and it's sub locations.
 * Last visited zone (for use with "Active zone") is now remembered between sessions.
 * Last used dataview combobox row is now remembered between sessions.
-* Added option to "warn on bursting souls", you will get a red "Souls!" text under the FAQ button warning you your stolen souls are about to burst free.
 * The webbrowser is now "silent". Meaning, the occassional javascript error you might get upon launch will no longer occur.
-* Options dialog redesigned. It now uses a tabbed interface.
 * Added ability to call 'Soul Stealer', 'Flaming Weapon', 'Legendary Luck' and 'Reaper' immortal powers from the menu for a single character.
+
+Preference Dialog(F11):
+* Added option to "warn on bursting souls", you will get a red "Souls!" text under the FAQ button warning you your stolen souls are about to burst free.
+* Options dialog redesigned. It now uses a tabbed interface.
+* Added "Dynamic Data view" option. Which adds the ability to view the best two hunting columns for each subzone in the selected or recent zone. This option is enabled by default, you can disable it in the options.
 * Made cube delay a preference between 200-5000ms - experiment at your own risk.
 * Referral ID made into preference. Share DTL with your friends!
 
