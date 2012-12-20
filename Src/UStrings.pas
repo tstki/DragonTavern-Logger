@@ -7,7 +7,8 @@ resourcestring
 
 const
   //
-  cRefUrl               = 'http://www.dragontavern.com/?ref=shadows-bolts-75';
+  cBaseUrl              = 'http://www.dragontavern.com/';
+  cRefStr               = '?ref=';
   cExploreStr           = '<A class=locName href="/char/';
   cNoneStr              = '- None -';
   cRecentStr            = '- Active Zone -';

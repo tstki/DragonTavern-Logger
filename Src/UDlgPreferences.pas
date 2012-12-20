@@ -62,6 +62,8 @@ type
     Label13: TLabel;
     EditCubeDelay: TEdit;
     Label14: TLabel;
+    Label15: TLabel;
+    EditReferrerID: TEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure BtnMergeClick(Sender: TObject);
@@ -164,6 +166,7 @@ begin
   ChkImmortalSoulStealer.Checked := FConfig.ImmortalSoulStealer;
   EditForcedCharacterID.Text := FConfig.ForcedCharacterID;
   EditCubeDelay.Text := IntToStr(FConfig.CubeDelay);
+  EditReferrerID.Text := FConfig.ReferrerID;
 
   FUpdateUI();
 end;
@@ -201,6 +204,7 @@ begin
   FConfig.ImmortalSoulStealer := ChkImmortalSoulStealer.Checked;
   FConfig.ForcedCharacterID := EditForcedCharacterID.Text;
   FConfig.CubeDelay := StrToInt(EditCubeDelay.Text);
+  FConfig.ReferrerID := EditReferrerID.Text;
 
   FConfig.WriteValues(False);
 end;

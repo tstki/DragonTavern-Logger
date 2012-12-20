@@ -383,7 +383,10 @@ begin
   FFillZonePulldown();
   FUpdateDataView();
 
-  WebBrowser1.Navigate(cRefUrl);
+  if FConfig.ReferrerID <> '' then
+    WebBrowser1.Navigate(cBaseUrl + cRefStr + FConfig.ReferrerID)
+  else
+    WebBrowser1.Navigate(cBaseUrl);
 
   BtnDataAnalyzer.Caption := '';
   CbxShow.Perform(CB_SETDROPPEDWIDTH, 215, 0);
@@ -505,11 +508,11 @@ var
   iall: IHTMLElement;
 begin
   // Close character session if we return to the main page, or got logged out due to idle time.
-  if (CompareText(URL, 'http://www.dragontavern.com/') = 0) or
-     (CompareText(URL, 'http://www.dragontavern.com/characters/') = 0) or
+  if (CompareText(URL, cBaseUrl) = 0) or
+     (CompareText(URL, cBaseUrl + 'characters/') = 0) or
      (CompareText(URL, 'http://forums.dragontavern.com/') = 0) or
-     (CompareText(URL, 'http://www.dragontavern.com/faq/') = 0) or
-     AnsiContainsStr(URL, 'http://www.dragontavern.com/account/') then
+     (CompareText(URL, cBaseUrl + 'faq/') = 0) or
+     AnsiContainsStr(URL, cBaseUrl + 'account/') then
     FCharName := '';
 
   // Don't show certain script results. Ugly.
@@ -527,21 +530,21 @@ begin
     Exit;
   end;
 
-  if AnsiContainsStr(URL, 'http://www.dragontavern.com/' ) then begin
-    if AnsiContainsStr(URL, 'http://www.dragontavern.com/char/' ) then begin
+  if AnsiContainsStr(URL, cBaseUrl ) then begin
+    if AnsiContainsStr(URL, cBaseUrl + 'char/' ) then begin
       iall := FGetRootHtmlElement();
       try
         FRunDataExtraction(iall);
       except
         // hm something bad occurred in the pos handling
       end;
-    end else if AnsiContainsStr(URL, 'http://www.dragontavern.com/characters/') then begin
+    end else if AnsiContainsStr(URL, cBaseUrl + 'characters/') then begin
       LblCurZoneTitle.Caption := 'Character selection';
       LvActiveZoneData.Clear;
     end else begin
 
-      if(CompareText(URL, 'http://www.dragontavern.com/') = 0) or
-        (CompareText(URL, cRefUrl) = 0) then begin
+      if(CompareText(URL, cBaseUrl) = 0) or
+        ((FConfig.ReferrerID <> '') and (CompareText(URL, cBaseUrl + cRefStr + FConfig.ReferrerID) = 0)) then begin
 
         if (FConfig.UserName <> '') or (FConfig.Password <> '') then
           FFSetUsernamePassword(WebBrowser1.Document AS IHTMLDocument2, FConfig.UserName, FConfig.Password);

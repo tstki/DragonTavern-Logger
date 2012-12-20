@@ -71,6 +71,7 @@ type
     FImmortalSoulStealer: Boolean;
     FForcedCharacterID: String;
     FCubeDelay: Integer;
+    FReferrerID: String;
 
   public
     { Public declarations }
@@ -134,6 +135,7 @@ type
     property ImmortalSoulStealer: Boolean read FImmortalSoulStealer write FImmortalSoulStealer;
     property ForcedCharacterID: String read FForcedCharacterID write FForcedCharacterID;
     property CubeDelay: Integer read FCubeDelay write FCubeDelay;
+    property ReferrerID: String read FReferrerID write FReferrerID;
   end;
 
 implementation
@@ -219,6 +221,7 @@ begin
     FImmortalSoulStealer := appINI.ReadBool('Customization', 'ImmortalSoulStealer', False);
     FForcedCharacterID := appINI.ReadString('Customization', 'ForcedCharacterID', '');
     FCubeDelay := appINI.ReadInteger('Customization', 'CubeDelay', 450);
+    FReferrerID := appINI.ReadString('Customization', 'ReferrerID', 'shadows-bolts-75');
   finally
     appINI.Free;
   end;
@@ -295,6 +298,7 @@ begin
       appIni.WriteBool('Customization', 'ImmortalSoulStealer', FImmortalSoulStealer);
       appIni.WriteString('Customization', 'ForcedCharacterID', FForcedCharacterID);
       appIni.WriteInteger('Customization', 'CubeDelay', FCubeDelay);
+      appIni.WriteString('Customization', 'ReferrerID', FReferrerID);
     end;
 
   finally
