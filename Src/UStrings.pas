@@ -3,7 +3,7 @@
 interface
 
 resourcestring
-  StrVersion            = '1.0.9';
+  StrVersion            = '1.0.10';
 
 const
   //

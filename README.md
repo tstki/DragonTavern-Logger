@@ -27,6 +27,11 @@ The right side holds some shortcut buttons - so you can go from cube transmution
 There's a detail box for your current zone info, and it will update (+1), and show info about any other zone you want - like subzones.
 
 ---------------------------------------------------------------------------------
+1.0.10 : 2013x
+---------------------------------------------------------------------------------
+*
+
+---------------------------------------------------------------------------------
 1.0.9 : 20121222
 ---------------------------------------------------------------------------------
 * Increase/decrease difficulty buttons added to main interface.
