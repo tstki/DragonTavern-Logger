@@ -141,6 +141,8 @@ type
     auntReaper1: TMenuItem;
     BoostLuck1: TMenuItem;
     ActFlamingWeapon: TAction;
+    DeathAura1: TMenuItem;
+    ActDeathAura: TAction;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure WebBrowser1StatusTextChange(ASender: TObject; const Text: WideString);
@@ -580,7 +582,7 @@ begin
       FCharName := Copy(tmpstr, 1, p1-1);
 
       p2 := Pos(PChar('</A><SPAN>'), tmpstr);
-      zoneName := Copy(tmpstr, p1+Length(PChar('/">')), p2-p1-Length(PChar('/">')));
+      zoneName := Trim(Copy(tmpstr, p1+Length(PChar('/">')), p2-p1-Length(PChar('/">'))));
 
       // See if we found a creature. (We don't care about traps, nothing, and dead corpses recovered)
       p1 := Pos(PChar('<H4>Level '), iall.outerHTML);

@@ -2154,6 +2154,11 @@ object FrmDBrowser: TFrmDBrowser
       Hint = 'Activate, 1AP'
       OnExecute = ActFlamingWeaponExecute
     end
+    object ActDeathAura: TAction
+      Category = 'Immortal'
+      Caption = 'Death Aura'
+      Hint = 'Activate, 1AP'
+    end
   end
   object MainMenu1: TMainMenu
     Images = ImlFrmMain
@@ -2262,6 +2267,9 @@ object FrmDBrowser: TFrmDBrowser
       end
       object BoostLuck1: TMenuItem
         Action = ActBoostLuck
+      end
+      object DeathAura1: TMenuItem
+        Action = ActDeathAura
       end
     end
     object ravel1: TMenuItem

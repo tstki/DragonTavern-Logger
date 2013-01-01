@@ -29,7 +29,8 @@ There's a detail box for your current zone info, and it will update (+1), and sh
 ---------------------------------------------------------------------------------
 1.0.10 : 2013x
 ---------------------------------------------------------------------------------
-*
+* Added whitespace "trim" to zone name detection, to prevent an oddity with the latest zone detection.
+* Added death aura shortcut in menu.
 
 ---------------------------------------------------------------------------------
 1.0.9 : 20121222
