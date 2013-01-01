@@ -2158,6 +2158,7 @@ object FrmDBrowser: TFrmDBrowser
       Category = 'Immortal'
       Caption = 'Death Aura'
       Hint = 'Activate, 1AP'
+      OnExecute = ActDeathAuraExecute
     end
   end
   object MainMenu1: TMainMenu

@@ -199,6 +199,7 @@ type
     procedure ActStealKnowledgeExecute(Sender: TObject);
     procedure ActPhantomFormExecute(Sender: TObject);
     procedure ActFlamingWeaponExecute(Sender: TObject);
+    procedure ActDeathAuraExecute(Sender: TObject);
   private
     FConfig: TConfig;
     FDataConfig: TDataConfig;
@@ -871,6 +872,13 @@ procedure TFrmDBrowser.ActFlamingWeaponExecute(Sender: TObject);
 begin
   if FConfig.ForcedCharacterID <> '' then
     WebBrowser1.Navigate('javascript:flameon( ''' + FConfig.ForcedCharacterID + ''' );');
+  FFocusBrowserFrame();
+end;
+
+procedure TFrmDBrowser.ActDeathAuraExecute(Sender: TObject);
+begin
+  if FConfig.ForcedCharacterID <> '' then
+    WebBrowser1.Navigate('javascript:deathAuraActivate( ''' + FConfig.ForcedCharacterID + ''' );');
   FFocusBrowserFrame();
 end;
 
